@@ -29,7 +29,7 @@ namespace ImmobilienVerwaltung
                 return $"{Straße},   {HausNo}.  {PLZ}  {Stadt}.";
             }
         }
-        public Immobilie(int baujahr, double gründstücksgrüße, double kellerfläsche, double wohnfläsche) //Heizungsanlagetyp heizungsanlagetyp)
+        public Immobilie(int baujahr, double gründstücksgrüße, double kellerfläsche, double wohnfläsche) 
         {
             this.Id =  Guid.NewGuid().GetHashCode();
             this.Baujahr = baujahr;
