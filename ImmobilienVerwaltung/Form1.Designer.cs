@@ -33,12 +33,10 @@
             this.label_Grundstücksgröße = new System.Windows.Forms.Label();
             this.label_Wohnfläche = new System.Windows.Forms.Label();
             this.label_Kellerfläche = new System.Windows.Forms.Label();
-            this.label_Heizungsanlagentyp = new System.Windows.Forms.Label();
             this.textBox_baujahr = new System.Windows.Forms.TextBox();
             this.textBox_GründstückSize = new System.Windows.Forms.TextBox();
             this.textBox_WohnfläscheSize = new System.Windows.Forms.TextBox();
             this.textBox_Kellerfläschesize = new System.Windows.Forms.TextBox();
-            this.textBox_Heizungtyp = new System.Windows.Forms.TextBox();
             this.labelStraße = new System.Windows.Forms.Label();
             this.label_Hausnr = new System.Windows.Forms.Label();
             this.label_PLZ = new System.Windows.Forms.Label();
@@ -53,6 +51,15 @@
             this.button_Delete = new System.Windows.Forms.Button();
             this.button_Read = new System.Windows.Forms.Button();
             this.button_Save = new System.Windows.Forms.Button();
+            this.comboBox_Heizung = new System.Windows.Forms.ComboBox();
+            this.label_HeizungTyp = new System.Windows.Forms.Label();
+            this.listView_Immobilie = new System.Windows.Forms.ListView();
+            this.Baujahr = new System.Windows.Forms.ColumnHeader();
+            this.Gründstücksgrüße = new System.Windows.Forms.ColumnHeader();
+            this.Kellerfläsche = new System.Windows.Forms.ColumnHeader();
+            this.Wohnfläsche = new System.Windows.Forms.ColumnHeader();
+            this.Heizungtyp = new System.Windows.Forms.ColumnHeader();
+            this.Address = new System.Windows.Forms.ColumnHeader();
             this.SuspendLayout();
             // 
             // label_Immobilie
@@ -101,15 +108,6 @@
             this.label_Kellerfläche.TabIndex = 4;
             this.label_Kellerfläche.Text = "Kellerfläche";
             // 
-            // label_Heizungsanlagentyp
-            // 
-            this.label_Heizungsanlagentyp.AutoSize = true;
-            this.label_Heizungsanlagentyp.Location = new System.Drawing.Point(43, 285);
-            this.label_Heizungsanlagentyp.Name = "label_Heizungsanlagentyp";
-            this.label_Heizungsanlagentyp.Size = new System.Drawing.Size(144, 20);
-            this.label_Heizungsanlagentyp.TabIndex = 5;
-            this.label_Heizungsanlagentyp.Text = "Heizungsanlagentyp";
-            // 
             // textBox_baujahr
             // 
             this.textBox_baujahr.Location = new System.Drawing.Point(193, 92);
@@ -141,13 +139,6 @@
             this.textBox_Kellerfläschesize.Size = new System.Drawing.Size(125, 27);
             this.textBox_Kellerfläschesize.TabIndex = 9;
             this.textBox_Kellerfläschesize.TextChanged += new System.EventHandler(this.textBox_Kellerfläschesize_TextChanged);
-            // 
-            // textBox_Heizungtyp
-            // 
-            this.textBox_Heizungtyp.Location = new System.Drawing.Point(193, 285);
-            this.textBox_Heizungtyp.Name = "textBox_Heizungtyp";
-            this.textBox_Heizungtyp.Size = new System.Drawing.Size(125, 27);
-            this.textBox_Heizungtyp.TabIndex = 10;
             // 
             // labelStraße
             // 
@@ -244,7 +235,7 @@
             // 
             // button_Delete
             // 
-            this.button_Delete.Location = new System.Drawing.Point(406, 412);
+            this.button_Delete.Location = new System.Drawing.Point(360, 412);
             this.button_Delete.Name = "button_Delete";
             this.button_Delete.Size = new System.Drawing.Size(94, 29);
             this.button_Delete.TabIndex = 22;
@@ -253,27 +244,101 @@
             // 
             // button_Read
             // 
-            this.button_Read.Location = new System.Drawing.Point(597, 412);
+            this.button_Read.Location = new System.Drawing.Point(59, 485);
             this.button_Read.Name = "button_Read";
             this.button_Read.Size = new System.Drawing.Size(94, 29);
             this.button_Read.TabIndex = 23;
             this.button_Read.Text = "Read";
             this.button_Read.UseVisualStyleBackColor = true;
+            this.button_Read.Click += new System.EventHandler(this.button_Read_Click);
             // 
             // button_Save
             // 
-            this.button_Save.Location = new System.Drawing.Point(793, 412);
+            this.button_Save.Location = new System.Drawing.Point(224, 485);
             this.button_Save.Name = "button_Save";
             this.button_Save.Size = new System.Drawing.Size(94, 29);
             this.button_Save.TabIndex = 24;
             this.button_Save.Text = "Save";
             this.button_Save.UseVisualStyleBackColor = true;
+            this.button_Save.Click += new System.EventHandler(this.button_Save_Click);
+            // 
+            // comboBox_Heizung
+            // 
+            this.comboBox_Heizung.FormattingEnabled = true;
+            this.comboBox_Heizung.Location = new System.Drawing.Point(193, 303);
+            this.comboBox_Heizung.Name = "comboBox_Heizung";
+            this.comboBox_Heizung.Size = new System.Drawing.Size(151, 28);
+            this.comboBox_Heizung.TabIndex = 25;
+            this.comboBox_Heizung.SelectedIndexChanged += new System.EventHandler(this.comboBox_Heizung_SelectedIndexChanged);
+            // 
+            // label_HeizungTyp
+            // 
+            this.label_HeizungTyp.AutoSize = true;
+            this.label_HeizungTyp.Location = new System.Drawing.Point(45, 303);
+            this.label_HeizungTyp.Name = "label_HeizungTyp";
+            this.label_HeizungTyp.Size = new System.Drawing.Size(85, 20);
+            this.label_HeizungTyp.TabIndex = 26;
+            this.label_HeizungTyp.Text = "Heizungtyp";
+            // 
+            // listView_Immobilie
+            // 
+            this.listView_Immobilie.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.Baujahr,
+            this.Gründstücksgrüße,
+            this.Kellerfläsche,
+            this.Wohnfläsche,
+            this.Heizungtyp,
+            this.Address});
+            this.listView_Immobilie.Location = new System.Drawing.Point(469, 272);
+            this.listView_Immobilie.Name = "listView_Immobilie";
+            this.listView_Immobilie.Size = new System.Drawing.Size(548, 256);
+            this.listView_Immobilie.TabIndex = 27;
+            this.listView_Immobilie.UseCompatibleStateImageBehavior = false;
+            this.listView_Immobilie.View = System.Windows.Forms.View.Details;
+            this.listView_Immobilie.SelectedIndexChanged += new System.EventHandler(this.listView_Immobilie_SelectedIndexChanged);
+            // 
+            // Baujahr
+            // 
+            this.Baujahr.Text = "Const. Year";
+            this.Baujahr.Width = 40;
+            // 
+            // Gründstücksgrüße
+            // 
+            this.Gründstücksgrüße.Text = "Plot Size";
+            this.Gründstücksgrüße.Width = 40;
+            // 
+            // Kellerfläsche
+            // 
+            this.Kellerfläsche.DisplayIndex = 4;
+            this.Kellerfläsche.Text = "Keller Space";
+            this.Kellerfläsche.Width = 40;
+            // 
+            // Wohnfläsche
+            // 
+            this.Wohnfläsche.DisplayIndex = 5;
+            this.Wohnfläsche.Text = "LivingSpace";
+            this.Wohnfläsche.Width = 40;
+            // 
+            // Heizungtyp
+            // 
+            this.Heizungtyp.DisplayIndex = 2;
+            this.Heizungtyp.Text = "Heating Type";
+            this.Heizungtyp.Width = 70;
+            // 
+            // Address
+            // 
+            this.Address.DisplayIndex = 3;
+            this.Address.Text = "Address";
+            this.Address.Width = 150;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(917, 526);
+            this.ClientSize = new System.Drawing.Size(1029, 526);
+            this.Controls.Add(this.listView_Immobilie);
+            this.Controls.Add(this.label_HeizungTyp);
+            this.Controls.Add(this.comboBox_Heizung);
             this.Controls.Add(this.button_Save);
             this.Controls.Add(this.button_Read);
             this.Controls.Add(this.button_Delete);
@@ -288,12 +353,10 @@
             this.Controls.Add(this.label_PLZ);
             this.Controls.Add(this.label_Hausnr);
             this.Controls.Add(this.labelStraße);
-            this.Controls.Add(this.textBox_Heizungtyp);
             this.Controls.Add(this.textBox_Kellerfläschesize);
             this.Controls.Add(this.textBox_WohnfläscheSize);
             this.Controls.Add(this.textBox_GründstückSize);
             this.Controls.Add(this.textBox_baujahr);
-            this.Controls.Add(this.label_Heizungsanlagentyp);
             this.Controls.Add(this.label_Kellerfläche);
             this.Controls.Add(this.label_Wohnfläche);
             this.Controls.Add(this.label_Grundstücksgröße);
@@ -314,12 +377,10 @@
         private Label label_Grundstücksgröße;
         private Label label_Wohnfläche;
         private Label label_Kellerfläche;
-        private Label label_Heizungsanlagentyp;
         private TextBox textBox_baujahr;
         private TextBox textBox_GründstückSize;
         private TextBox textBox_WohnfläscheSize;
         private TextBox textBox_Kellerfläschesize;
-        private TextBox textBox_Heizungtyp;
         private Label labelStraße;
         private Label label_Hausnr;
         private Label label_PLZ;
@@ -334,5 +395,14 @@
         private Button button_Delete;
         private Button button_Read;
         private Button button_Save;
+        private ComboBox comboBox_Heizung;
+        private Label label_HeizungTyp;
+        private ListView listView_Immobilie;
+        private ColumnHeader Baujahr;
+        private ColumnHeader Gründstücksgrüße;
+        private ColumnHeader Heizungtyp;
+        private ColumnHeader Address;
+        private ColumnHeader Kellerfläsche;
+        private ColumnHeader Wohnfläsche;
     }
 }

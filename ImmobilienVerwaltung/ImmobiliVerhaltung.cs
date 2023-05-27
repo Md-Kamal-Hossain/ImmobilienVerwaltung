@@ -1,10 +1,12 @@
 ﻿using DocumentFormat.OpenXml.Spreadsheet;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.ComponentModel;
 
 
 namespace ImmobilienVerwaltung
@@ -12,43 +14,45 @@ namespace ImmobilienVerwaltung
     public class ImmobiliVerhaltung
     {
         public List<Immobilie> immobilienList { get; set; }
-         
+      //public ObservableCollection<Immobilie> collectionForListView { get; set; }
         public ImmobiliVerhaltung()
         {
-          immobilienList = new List<Immobilie>();
-          
-        }     
-        public  void AddImmobilie(Immobilie immobilie)
-        {
+            immobilienList = new List<Immobilie>();
             
-           immobilienList.Add(immobilie);
-
         }
-        public List<Immobilie> DeleteImmobilie(int? immobilieId) //item.Kellerfläsche.ToString()
+        public void AddImmobilie(Immobilie immobilie)
         {
-
-            var item = immobilienList.SingleOrDefault(x => x.Id == immobilieId);
-            if (item != null)
-                immobilienList.Remove(item);
-            return immobilienList;
+            immobilienList.Add(immobilie);
+            
         }
-        public List<Immobilie> EditImmobilie(Immobilie _immobilie)
-        {
-            int index = immobilienList.FindIndex(s => s.Id == _immobilie.Id);
+        //public void AddImmobilieForViewList(Immobilie immobilie)
+        //{
+        //    collectionForListView.Add(immobilie){ };
 
-            if (index != -1)
-            {
-                return immobilienList;
-            }
-            else
-            {  
-             
-                immobilienList[index] = _immobilie;
-                return immobilienList;
-            }
-                        
-        }
-}
+
+        //}
+       
+
+        //public void SaveImmobilie() //item.Kellerfläsche.ToString()
+        //{
+
+        //    TextWriter tw = new StreamWriter("C:/Users/Public/RealStateData/PropertyInfo.txt");
+        //    foreach (Immobilie imm in immobilienList)
+        //    {
+        //        tw.WriteLine(imm);
+
+        //    }
+        //    tw.Close();
+        //}
+        //public void SaveImmobilieInListView()
+        //{
+
+
+
+
+        //}
+
+    }
 }
    
 
