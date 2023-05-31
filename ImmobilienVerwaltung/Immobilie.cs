@@ -12,13 +12,13 @@ namespace ImmobilienVerwaltung
 {  
 
     //subscriber class
-    public class Immobilie:ModelBase
+    public  class Immobilie:ModelBase
     {
-       // public int Id { get; set; }
 
         private int _bauJahr;
         public int Baujahr
-        { get=>_bauJahr;
+        { 
+            get=>_bauJahr;
             set
             {
                 if (_bauJahr == value)
@@ -75,30 +75,10 @@ namespace ImmobilienVerwaltung
                 OnPropertyChanged(nameof(HeizungSystemTyp));
             }
         }
-        private double _gesamtWohnflaesche;
-        public double GesamtWohnflaesche
-        {
-            get => _gesamtWohnflaesche;
-            set
-            {
-                if (_gesamtWohnflaesche == value)
-                    return;
-                _gesamtWohnflaesche = value;
-                OnPropertyChanged(nameof(GesamtWohnflaesche));
-            }
-        }
-        private Address _address;
-        public Address Address
-        {
-            get => _address;
-            set
-            {
-                if (_address == value)
-                    return;
-                _address = value;
-                OnPropertyChanged(nameof(Address));
-            }
-        }
+        public double GesamtWohnflaesche { get;}
+        public Address Address { get; }
+
+
         public Immobilie()
         {
 
@@ -106,17 +86,16 @@ namespace ImmobilienVerwaltung
         
         public override string ToString()
         {
-            return $"Baujahr: {Baujahr} + Grundstücksgröße: { Gründstücksgrüße } + { Address.ToString()}";//want to add Id
+            return $"Baujahr: {Baujahr} + Grundstücksgröße: {Gründstücksgrüße} + Wohnflasche: {Wohnfläsche} + Kellerflasche: {Kellerfläsche}+ Heizungtyp: {Heizungtyp}  +  { Address.ToString}";
             //+"Heizungtyp"+ heizungsanlagetyp;
         }
 
-        public Immobilie( int baujahr, double gründstücksgrüße, double kellerfläsche, double wohnfläsche,HeizungSystemTyp heiz, Address address ) 
+        public Immobilie( int baujahr, double gründstücksgrüße, double wohnfläsche, double kellerfläsche, HeizungSystemTyp heiz, Address address) 
         {
-            //this.Id = ID();
             this.Baujahr = baujahr;
             this.Gründstücksgrüße = gründstücksgrüße;
-            this.Kellerfläsche = kellerfläsche;
             this.Wohnfläsche = wohnfläsche;
+            this.Kellerfläsche = kellerfläsche;
             this.GesamtWohnflaesche = GetGesamtWohnfläche(kellerfläsche, wohnfläsche);
             this.Heizungtyp = heiz;
             this.Address = address;
@@ -125,17 +104,13 @@ namespace ImmobilienVerwaltung
             notifyPropertyChange.PropertyChanged += Immobilie_PropertyChanged;
 
         }
-        //I will write a method to auto generate incrimental id which I will add to list.
-        //public int GetID()
-        //{
-           
-        //}
+       
         public double GetGesamtWohnfläche(double kellerfläsche, double wohnfläsche)
         {
             double gesamtWohnflaesche = kellerfläsche + wohnfläsche;
             return gesamtWohnflaesche;
         }
-        private void Immobilie_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        public void Immobilie_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
@@ -147,40 +122,104 @@ namespace ImmobilienVerwaltung
                     //call onpropeetyChanged whenever the property is updatet
                     OnPropertyChanged(nameof(GesamtWohnflaesche));
                     
-                    break;
+                    break;           
             }
         }
 
     }
-    public class Address
+    public class Address : ModelBase
     {
-        public string Straße { get; }
-        public string HausNo { get; set; }
-        public string PLZ { get; set; }
-        public string Stadt { get; set; }
-        public string totaladdress { get; set; }
-        public Address()
+
+        private string _stadt;
+        public string Stadt{
+            get => _stadt;
+            set
+            {
+                if (_stadt == value)
+                    return;
+                _stadt = value;
+                OnPropertyChanged(nameof(Stadt));
+            }
+        }
+        private string _straße;
+        public string Straße
         {
-            
+            get => _straße;
+            set
+            {
+                if (_straße == value)
+                    return;
+                _straße = value;
+                OnPropertyChanged(nameof(Straße));
+            }
+        }
+        private string _plz;
+        public string PLZ
+        {
+            get => _plz;
+            set
+            {
+                if (_plz == value)
+                    return;
+                _plz = value;
+                OnPropertyChanged(nameof(PLZ));
+            }
+        }
+        private string _hausNo;
+        public string HausNo
+        {
+            get => _hausNo;
+            set
+            {
+                if (_hausNo == value)
+                    return;
+                _hausNo = value;
+                OnPropertyChanged(nameof(HausNo));
+            }
         }
 
-        public Address(string straße, string hausNo, string pLZ, string stadt)
+
+       
+        public Address(string straße, string hausno, string plz, string stadt)
         {
             this.Straße = straße;
-            this.HausNo = hausNo;
-            this.PLZ = pLZ;
+            this.HausNo = hausno;
+            this.PLZ = plz;
             this.Stadt = stadt;
-            
+
+            NotifyPropertyChangeImp notifyPropertyChange = new NotifyPropertyChangeImp();
+            notifyPropertyChange.PropertyChanged += Address_PropertyChanged;
+        }
+        public void Address_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+
+                case nameof(Straße):
+                    //call onpropeetyChanged whenever the property is updated
+                    OnPropertyChanged(nameof(Address));
+                    break;
+                case nameof(HausNo):
+                    //call onpropeetyChanged whenever the property is updated
+                    OnPropertyChanged(nameof(Address));
+                    break;
+                case nameof(PLZ):
+                    //call onpropeetyChanged whenever the property is updated
+                    OnPropertyChanged(nameof(Address));
+                    break;
+                case nameof(Stadt):
+                    //call onpropeetyChanged whenever the property is updated
+                    OnPropertyChanged(nameof(Address));
+                    break;
+
+            }
         }
         public override string ToString()
         {
-            return "Address:" + "," + Straße + "," + HausNo + "," + PLZ + "," + Stadt + "." ;
-        }
-        //public string GetTotalAddress(string straße, string hausNo, string pLZ, string stadt)
-        //{
-        //    totaladdress = $"{straße},   {hausNo}.  {pLZ}  {stadt}.";
-        //    return totaladdress;
 
-        //}
+            return $" Address: {Straße} {HausNo} {PLZ} {Stadt}";
+            //return  Straße + "," + HausNo + "," + PLZ + "," + Stadt + "." ;
+        }
+
     }
 }

@@ -15,7 +15,7 @@ namespace ImmobilienVerwaltung
             //delare the event 
             public event PropertyChangedEventHandler PropertyChanged;
             //create OnPropertyChange method to raise the event
-            protected internal void OnPropertyChanged(string propertyName)
+            protected  void OnPropertyChanged(string propertyName)
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
             }
