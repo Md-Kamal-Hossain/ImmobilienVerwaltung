@@ -2,6 +2,7 @@ using ImmobilienVerwaltung;
 using System.Collections;
 using System;
 using System.IO;
+using CsvHelper;
 
 namespace ImmobilienVerwaltung
 {
@@ -84,17 +85,45 @@ namespace ImmobilienVerwaltung
                 {
                     int var = listView_Immobilie.SelectedIndices[x];
                     listView_Immobilie.Items.RemoveAt(var);
+
                 }
                 // Clear the editing controls after the update
                 textBox_baujahr.Text = string.Empty;
                 textBox_GründstückSize.Text = string.Empty;
                 textBox_Kellerfläschesize.Text = string.Empty;
                 textBox_WohnfläscheSize.Text = string.Empty;
+                //DeleteFromTextFile();
+
             };
 
         }
         //Form1 constructor ends here
+        //private void DeleteFromTextFile()
+        //{
+        //    string path = @"C:/Users/Public/RealStateData/PropertyInfo.txt";
+        //    if (File.Exists(path))
+        //    {
+        //        using (var stream = File.Create(path))
+        //        {
+        //            using (TextWriter tw = new StreamWriter(stream))
+        //            {
+        //                for (int i = 0; i < immoVerwaltung.immobilienList.Count; i++)
+        //                {
+        //                    //tw.WriteLine(immoVerwaltung.immobilienList.All());
+        //                    //tw.WriteLine(i.ToString("") + "|" + listView_Immobilie.Items[i].SubItems[0].Text + "|" + listView_Immobilie.Items[i].SubItems[1].Text
+        //                    //    + "|" + listView_Immobilie.Items[i].SubItems[2].Text + "|" + listView_Immobilie.Items[i].SubItems[3].Text + "|"
+        //                    //    + listView_Immobilie.Items[i].SubItems[4].Text + "|" + listView_Immobilie.Items[i].SubItems[5].Text);
+        //                    tw.WriteLine(listView_Immobilie.Items[i].Text ==null);
+        //                }
 
+
+
+
+        //            }
+        //        }
+        //    }
+
+        //}
 
         private void label1_Click(object sender, EventArgs e)
         {
@@ -150,27 +179,71 @@ namespace ImmobilienVerwaltung
 
         private void button_Save_Click(object sender, EventArgs e)
         {
-
-            TextWriter tw = new StreamWriter("C:/Users/Public/RealStateData/PropertyInfo.txt");
-            for(int i = 0; i< immoVerwaltung.immobilienList.Count;i++)
+            using (TextWriter tw = new StreamWriter("C:/Users/Public/RealStateData/PropertyInfo.txt"))
             {
-                //tw.WriteLine(immoVerwaltung.immobilienList.All());
-                tw.WriteLine(i.ToString() + "|" + listView_Immobilie.Items[i].SubItems[0].Text + "|" + listView_Immobilie.Items[i].SubItems[1].Text
-                    +"|"+ listView_Immobilie.Items[i].SubItems[2].Text+ "|" + listView_Immobilie.Items[i].SubItems[3].Text+ "|" 
-                    + listView_Immobilie.Items[i].SubItems[4].Text + "|" + listView_Immobilie.Items[i].SubItems[5].Text);
+
+                for (int i = 0; i < immoVerwaltung.immobilienList.Count; i++)
+                {
+
+                    tw.WriteLine(i.ToString() + "|" + listView_Immobilie.Items[i].SubItems[0].Text + "|" + listView_Immobilie.Items[i].SubItems[1].Text
+                        + "|" + listView_Immobilie.Items[i].SubItems[2].Text + "|" + listView_Immobilie.Items[i].SubItems[3].Text + "|"
+                        + listView_Immobilie.Items[i].SubItems[4].Text + "|" + listView_Immobilie.Items[i].SubItems[5].Text);
+                }
+
             }
-            
-            tw.Close();
+            //string path = @"C:/Users/Public/RealStateData/PropertyInfo.txt";
+            //TextWriter tw = new StreamWriter(path);
+            //if (File.Exists(path))
+            //{
+            //    //using (var stream = File.Create(path))
+            //    //{
+            //        //using (TextWriter tw = new StreamWriter(path))
+            //        //{
+            //            for (int i = 0; i < immoVerwaltung.immobilienList.Count; i++)
+            //            {
+            //                tw.WriteLine(i.ToString() + "|" + listView_Immobilie.Items[i].SubItems[0].Text + "|" + listView_Immobilie.Items[i].SubItems[1].Text
+            //            + "|" + listView_Immobilie.Items[i].SubItems[2].Text + "|" + listView_Immobilie.Items[i].SubItems[3].Text + "|"
+            //            + listView_Immobilie.Items[i].SubItems[4].Text + "|" + listView_Immobilie.Items[i].SubItems[5].Text);
+            //            }
+
+
+
+            //       // }
+            //    //}
+            //}
+
 
         }
 
+
         private void button_Read_Click(object sender, EventArgs e)
         {
+          
+            
+
             string path = @"C:/Users/Public/RealStateData/PropertyInfo.txt";
-            StreamReader sr = new StreamReader(path);   
-            string  text = sr.ReadToEnd();
-            MessageBox.Show(text);
+            FileStream logFileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            StreamReader sr = new StreamReader(logFileStream);
+            //StreamReader sr = new StreamReader(path);
+
+            while (!sr.EndOfStream)
+            {
+                string line = sr.ReadLine();
+                string[] lineItems = line.Split("|");
+                ListViewItem lv = new ListViewItem();
+                lv.Text = lineItems[1];
+                lv.SubItems.Add(lineItems[2]);
+                lv.SubItems.Add(lineItems[3]);
+                lv.SubItems.Add(lineItems[4]);
+                lv.SubItems.Add(lineItems[5]);
+                lv.SubItems.Add(lineItems[6]);
+                listView_Immobilie.Items.Add(lv);
+
+
+            }
             sr.Close();
+            logFileStream.Close();
+               
 
         }
 
