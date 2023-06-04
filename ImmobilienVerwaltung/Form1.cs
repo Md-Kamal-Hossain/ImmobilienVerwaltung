@@ -8,11 +8,14 @@ namespace ImmobilienVerwaltung
 {
     public partial class Form1 : Form
     {
+       
         ImmobiliVerhaltung immoVerwaltung = new ImmobiliVerhaltung();
 
         public Form1()
-        {
+        {   
             InitializeComponent();
+            
+          
             comboBox_Heizung.DataSource = Enum.GetValues(typeof(HeizungSystemTyp));
 
             //ImmobiliVerhaltung immoVerwaltung = new ImmobiliVerhaltung();
@@ -26,7 +29,7 @@ namespace ImmobilienVerwaltung
                 HeizungSystemTyp heizungT= new HeizungSystemTyp();
                 Address ad = new Address(textBox_StraßeName.Text, textBox_HausNr.Text, textBox_PLZ.Text, textBox_Stadt.Text);
                 Immobilie immo = new Immobilie( Convert.ToInt32(textBox_baujahr.Text), Convert.ToDouble(textBox_GründstückSize.Text),
-                    Convert.ToDouble(textBox_Kellerfläschesize.Text), Convert.ToDouble(textBox_WohnfläscheSize.Text),heizungT, ad);
+                    Convert.ToDouble(textBox_WohnfläscheSize.Text), Convert.ToDouble(textBox_Kellerfläschesize.Text), heizungT, ad);
                 immo.GetGesamtWohnfläche(Convert.ToDouble(textBox_GründstückSize.Text), Convert.ToDouble(textBox_WohnfläscheSize.Text));
                 immoVerwaltung.AddImmobilie(immo);
                 
@@ -38,14 +41,14 @@ namespace ImmobilienVerwaltung
                     listViewItem.SubItems.Add(comboBox_Heizung.Text);
                     listViewItem.SubItems.Add(ad.ToString());
                     listView_Immobilie.Items.Add(listViewItem);
-                    textBox_baujahr.Clear();    
-                    textBox_GründstückSize.Clear();
-                    textBox_Kellerfläschesize.Clear();
-                    textBox_WohnfläscheSize.Clear();
-                    textBox_StraßeName.Clear(); 
-                    textBox_HausNr.Clear(); 
-                    textBox_PLZ.Clear();    
-                    textBox_Stadt.Clear(); 
+                    //textBox_baujahr.Clear();    
+                    //textBox_GründstückSize.Clear();
+                    //textBox_Kellerfläschesize.Clear();
+                    //textBox_WohnfläscheSize.Clear();
+                    //textBox_StraßeName.Clear(); 
+                    //textBox_HausNr.Clear(); 
+                    //textBox_PLZ.Clear();    
+                    //textBox_Stadt.Clear(); 
                     
 
                 //SaveImmobilie();
@@ -57,7 +60,7 @@ namespace ImmobilienVerwaltung
             button_Edit.Click += (s, e) =>
             {
                 listView_Immobilie.SelectedIndexChanged += listView_Immobilie_SelectedIndexChanged;
-  
+
                 if (listView_Immobilie.SelectedItems.Count > 0)
                 {
                     ListViewItem selectedItem = listView_Immobilie.SelectedItems[0];
@@ -68,62 +71,86 @@ namespace ImmobilienVerwaltung
                     selectedItem.SubItems[2].Text = textBox_Kellerfläschesize.Text;
                     selectedItem.SubItems[3].Text = textBox_WohnfläscheSize.Text;
                     selectedItem.SubItems[4].Text = comboBox_Heizung.Text;
+                    string path = @"C:/Users/Public/RealStateData/PropertyInfo.txt";
+                    using (TextWriter tw = new StreamWriter(path))
+                    {
+                        for (int i = 0; i < immoVerwaltung.immobilienList.Count; i++)
+                        {
+                            tw.WriteLine(i.ToString() + "|" + selectedItem.SubItems[0].Text + "|" + selectedItem.SubItems[1].Text
+                        + "|" + selectedItem.SubItems[2].Text + "|" + selectedItem.SubItems[3].Text + "|"
+                        + selectedItem.SubItems[4].Text + "|" + selectedItem.SubItems[4].Text );//listView_Immobilie.Items[i].SubItems[5].Text
+                        }
 
+
+
+                    }
                     // Clear the editing controls after the update
-                    textBox_baujahr.Text = string.Empty;
-                    textBox_GründstückSize.Text = string.Empty;
-                    textBox_Kellerfläschesize.Text = string.Empty;
-                    textBox_WohnfläscheSize.Text = string.Empty;
+                    //textBox_baujahr.Text = string.Empty;
+                    //textBox_GründstückSize.Text = string.Empty;
+                    //textBox_Kellerfläschesize.Text = string.Empty;
+                    //textBox_WohnfläscheSize.Text = string.Empty;
                 }
-                
+
 
             };
             button_Delete.Click += (s, e) =>
             {
 
-                for (int x = listView_Immobilie.SelectedIndices.Count - 1; x >= 0; x--)
-                {
-                    int var = listView_Immobilie.SelectedIndices[x];
-                    listView_Immobilie.Items.RemoveAt(var);
+                //for (int x = listView_Immobilie.SelectedIndices.Count - 1; x >= 0; x--)
+                //{
+                //    //int var = listView_Immobilie.SelectedIndices[x];
+                //    listView_Immobilie.SelectedItems[x].Remove();
 
+                //}
+                if (listView_Immobilie.SelectedItems.Count != -1)
+                {
+                    string filepath = listView_Immobilie.Items[listView_Immobilie.SelectedItems.IndexOfKey(Baujahr.Text)].ToString();
+                    if (File.Exists(filepath))
+                        File.Delete(filepath);
+                    listView_Immobilie.Items.RemoveAt(listView_Immobilie.SelectedItems.IndexOfKey(Baujahr.Text));
                 }
                 // Clear the editing controls after the update
                 textBox_baujahr.Text = string.Empty;
                 textBox_GründstückSize.Text = string.Empty;
                 textBox_Kellerfläschesize.Text = string.Empty;
                 textBox_WohnfläscheSize.Text = string.Empty;
-                //DeleteFromTextFile();
+               
+              
 
             };
 
         }
         //Form1 constructor ends here
-        //private void DeleteFromTextFile()
-        //{
-        //    string path = @"C:/Users/Public/RealStateData/PropertyInfo.txt";
-        //    if (File.Exists(path))
-        //    {
-        //        using (var stream = File.Create(path))
-        //        {
-        //            using (TextWriter tw = new StreamWriter(stream))
-        //            {
-        //                for (int i = 0; i < immoVerwaltung.immobilienList.Count; i++)
-        //                {
-        //                    //tw.WriteLine(immoVerwaltung.immobilienList.All());
-        //                    //tw.WriteLine(i.ToString("") + "|" + listView_Immobilie.Items[i].SubItems[0].Text + "|" + listView_Immobilie.Items[i].SubItems[1].Text
-        //                    //    + "|" + listView_Immobilie.Items[i].SubItems[2].Text + "|" + listView_Immobilie.Items[i].SubItems[3].Text + "|"
-        //                    //    + listView_Immobilie.Items[i].SubItems[4].Text + "|" + listView_Immobilie.Items[i].SubItems[5].Text);
-        //                    tw.WriteLine(listView_Immobilie.Items[i].Text ==null);
-        //                }
+        private void listView_Immobilie_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListView.SelectedIndexCollection indexes = this.listView_Immobilie.SelectedIndices;
+            foreach (int index in indexes)
+            {
+                textBox_baujahr.Text = this.listView_Immobilie.Items[index].SubItems[0].Text;
+                textBox_GründstückSize.Text = this.listView_Immobilie.Items[index].SubItems[1].Text;
+                textBox_WohnfläscheSize.Text = this.listView_Immobilie.Items[index].SubItems[2].Text;
+                textBox_Kellerfläschesize.Text = this.listView_Immobilie.Items[index].SubItems[3].Text;
+                comboBox_Heizung.Text = this.listView_Immobilie.Items[index].SubItems[4].Text;
+
+            }
 
 
+        }
 
 
-        //            }
-        //        }
-        //    }
+        private void RemoveItemFromFile(string item)
+        {
+            string path = @"C:/Users/Public/RealStateData/PropertyInfo.txt";
+                 
+                // Read the contents of the text file
+                string[] lines = File.ReadAllLines(path);
 
-        //}
+            // Find the line in the text file that matches the selected item and remove it
+            lines = Array.FindAll(lines, line => line != item);
+
+            // Write the updated contents back to the text file
+            File.WriteAllLines(path, lines);
+        }
 
         private void label1_Click(object sender, EventArgs e)
         {
@@ -179,6 +206,44 @@ namespace ImmobilienVerwaltung
 
         private void button_Save_Click(object sender, EventArgs e)
         {
+         
+            
+            string path = @"C:/Users/Public/RealStateData/PropertyInfo.txt";
+
+            if (!File.Exists(path))
+            {
+                using (var stream = File.Create(path)) ;
+            }
+            else
+            {
+                using (TextWriter tw = new StreamWriter(path))
+                {
+                    for (int i = 0; i < immoVerwaltung.immobilienList.Count; i++)
+                    {
+                        tw.WriteLine(i.ToString() + "|" + listView_Immobilie.Items[i].SubItems[0].Text + "|" + listView_Immobilie.Items[i].SubItems[1].Text
+                    + "|" + listView_Immobilie.Items[i].SubItems[2].Text + "|" + listView_Immobilie.Items[i].SubItems[3].Text + "|"
+                    + listView_Immobilie.Items[i].SubItems[4].Text + "|" + listView_Immobilie.Items[i].SubItems[5].Text);
+                    }
+
+
+
+                }
+
+            }
+            textBox_baujahr.Clear();
+            textBox_GründstückSize.Clear();
+            textBox_Kellerfläschesize.Clear();
+            textBox_WohnfläscheSize.Clear();
+            textBox_StraßeName.Clear();
+            textBox_HausNr.Clear();
+            textBox_PLZ.Clear();
+            textBox_Stadt.Clear();
+
+
+
+        }
+        private void SaveAfterEdit()
+        {
             using (TextWriter tw = new StreamWriter("C:/Users/Public/RealStateData/PropertyInfo.txt"))
             {
 
@@ -191,28 +256,6 @@ namespace ImmobilienVerwaltung
                 }
 
             }
-            //string path = @"C:/Users/Public/RealStateData/PropertyInfo.txt";
-            //TextWriter tw = new StreamWriter(path);
-            //if (File.Exists(path))
-            //{
-            //    //using (var stream = File.Create(path))
-            //    //{
-            //        //using (TextWriter tw = new StreamWriter(path))
-            //        //{
-            //            for (int i = 0; i < immoVerwaltung.immobilienList.Count; i++)
-            //            {
-            //                tw.WriteLine(i.ToString() + "|" + listView_Immobilie.Items[i].SubItems[0].Text + "|" + listView_Immobilie.Items[i].SubItems[1].Text
-            //            + "|" + listView_Immobilie.Items[i].SubItems[2].Text + "|" + listView_Immobilie.Items[i].SubItems[3].Text + "|"
-            //            + listView_Immobilie.Items[i].SubItems[4].Text + "|" + listView_Immobilie.Items[i].SubItems[5].Text);
-            //            }
-
-
-
-            //       // }
-            //    //}
-            //}
-
-
         }
 
 
@@ -222,7 +265,7 @@ namespace ImmobilienVerwaltung
             
 
             string path = @"C:/Users/Public/RealStateData/PropertyInfo.txt";
-            FileStream logFileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            FileStream logFileStream = new FileStream(path, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
             StreamReader sr = new StreamReader(logFileStream);
             //StreamReader sr = new StreamReader(path);
 
@@ -247,21 +290,7 @@ namespace ImmobilienVerwaltung
 
         }
 
-        private void listView_Immobilie_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ListView.SelectedIndexCollection indexes = this.listView_Immobilie.SelectedIndices;
-            foreach(int index in indexes)
-            {
-                textBox_baujahr.Text = this.listView_Immobilie.Items[index].SubItems[0].Text;
-                textBox_GründstückSize.Text = this.listView_Immobilie.Items[index].SubItems[1].Text;
-                textBox_WohnfläscheSize.Text = this.listView_Immobilie.Items[index].SubItems[2].Text;
-                textBox_Kellerfläschesize.Text = this.listView_Immobilie.Items[index].SubItems[3].Text;
-                comboBox_Heizung.Text = this.listView_Immobilie.Items[index].SubItems[4].Text;
-                
-            }
-          
-
-        }
+       
         private void button_Delete_Click(object sender, EventArgs e)
         {
             
