@@ -294,7 +294,7 @@
             this.listView_Immobilie.FullRowSelect = true;
             this.listView_Immobilie.GridLines = true;
             this.listView_Immobilie.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.listView_Immobilie.Location = new System.Drawing.Point(469, 272);
+            this.listView_Immobilie.Location = new System.Drawing.Point(469, 262);
             this.listView_Immobilie.MultiSelect = false;
             this.listView_Immobilie.Name = "listView_Immobilie";
             this.listView_Immobilie.Size = new System.Drawing.Size(548, 256);
