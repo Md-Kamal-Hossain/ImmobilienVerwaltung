@@ -11,7 +11,7 @@ namespace ImmobilienVerwaltung
        
         ImmobiliVerhaltung immoVerwaltung = new ImmobiliVerhaltung();
         string path = @"C:/Users/Public/RealStateData/PropertyInfo.txt";
-        //ListView.SelectedIndexCollection indexes = listView_Immobilie.SelectedIndices;
+        
 
         public Form1()
         {   
