@@ -217,7 +217,7 @@ namespace ImmobilienVerwaltung
         public override string ToString()
         {
 
-            return $" Address: {Straße} {HausNo} {PLZ} {Stadt}";
+            return $" Address:  Straße: {Straße}  . HouseNo:{HausNo} . PLZ: {PLZ} . Stadt: {Stadt}";
             //return  Straße + "," + HausNo + "," + PLZ + "," + Stadt + "." ;
         }
 
