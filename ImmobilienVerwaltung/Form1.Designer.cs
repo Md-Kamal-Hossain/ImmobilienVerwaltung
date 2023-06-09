@@ -332,7 +332,7 @@
             // Address
             // 
             this.Address.Text = "Address";
-            this.Address.Width = 230;
+            this.Address.Width = 290;
             // 
             // Form1
             // 

@@ -10,7 +10,7 @@ namespace ImmobilienVerwaltung
     {
        
         ImmobiliVerhaltung immoVerwaltung = new ImmobiliVerhaltung();
-        string path = @"C:/Users/Public/RealStateData/PropertyInfo.txt";
+        string path = @"C:/Users/Public/RealEstateData/PropertyInfo.txt";
         
 
         public Form1()
@@ -34,13 +34,19 @@ namespace ImmobilienVerwaltung
                 textBox_Wohnfl‰scheSize.Text = this.listView_Immobilie.Items[index].SubItems[2].Text;
                 textBox_Kellerfl‰schesize.Text = this.listView_Immobilie.Items[index].SubItems[3].Text;
                 comboBox_Heizung.Text = this.listView_Immobilie.Items[index].SubItems[4].Text;
-                string[] parts = this.listView_Immobilie.Items[index].SubItems[5].Text.Split(new char[] { ' ', '.', ':' });
+                char[] separators = { ';','-','.',':'};
+                             
+                                                      
+                string[] parts2 = this.listView_Immobilie.Items[index].SubItems[5].Text.Split(separators);
+                //string[] part22 = parts2[0].Split(Sep);  
+                
 
+               
+                textBox_StraﬂeName.Text = parts2[2];
+                textBox_HausNr.Text = parts2[4];
+                textBox_PLZ.Text = parts2[6];
+                textBox_Stadt.Text = parts2[8];
 
-                textBox_StraﬂeName.Text = parts[4];
-                textBox_HausNr.Text = parts[8];
-                textBox_PLZ.Text = parts[12];
-                textBox_Stadt.Text = parts[17];
 
 
             }
@@ -119,23 +125,30 @@ namespace ImmobilienVerwaltung
                 // Read all lines from the text file
                 string[] lines = File.ReadAllLines(path);
 
-                foreach (string line in lines)
-                {
-                    // Split the line by comma to extract the data
-                    string[] parts = line.Split( ',' );
+             
 
-                    // Create a new ListViewItem with the first part as text
-                    ListViewItem item = new ListViewItem(parts[0]);
 
                     // Add subitems to the ListViewItem
-                    for (int i = 1; i < parts.Length; i++)
+                    foreach (string line in lines)
                     {
-                        item.SubItems.Add(parts[i]);
+                        // Split the line by comma to extract the data
+                        string[] parts = line.Split(',');
+
+                        // Create a new ListViewItem with the first part as text
+                        ListViewItem item = new ListViewItem(parts[0]);
+
+                        // Add subitems to the ListViewItem
+                        for (int i = 1; i < parts.Length; i++)
+                        {
+                            item.SubItems.Add(parts[i]);
+                        }
+
+                        // Add the ListViewItem to the ListView
+                        listView_Immobilie.Items.Add(item);
                     }
 
-                    // Add the ListViewItem to the ListView
-                    listView_Immobilie.Items.Add(item);
-                }
+
+                
             }
             catch (Exception ex)
             {
@@ -169,8 +182,7 @@ namespace ImmobilienVerwaltung
             {
                 foreach (ListViewItem item in listView_Immobilie.Items)
                 {
-                    // Retrieve the relevant properties of the ListViewItem
-                    //string text = item.Text;
+                   
                     List<string> subItems = new List<string>();
                     for (int i = 0; i < item.SubItems.Count; i++)
                     {
@@ -266,7 +278,7 @@ namespace ImmobilienVerwaltung
                 item.SubItems[2].Text = textBox_Kellerfl‰schesize.Text;
                 item.SubItems[3].Text = textBox_Wohnfl‰scheSize.Text;
                 item.SubItems[4].Text = comboBox_Heizung.Text;
-                item.SubItems[5].Text = $"Address:  Straﬂe:{textBox_StraﬂeName.Text}. HouseNo: {textBox_HausNr.Text}. PLZ: {textBox_PLZ.Text} . Stadt: {textBox_Stadt.Text}";
+                item.SubItems[5].Text = $"Address:  Straﬂe-{textBox_StraﬂeName.Text} , HouseNo- {textBox_HausNr.Text} ; PLZ- {textBox_PLZ.Text} ; Stadt- {textBox_Stadt.Text}.";
                 
 
 
