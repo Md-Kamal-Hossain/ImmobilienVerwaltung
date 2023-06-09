@@ -216,7 +216,7 @@
             // 
             // button_Add
             // 
-            this.button_Add.Location = new System.Drawing.Point(59, 412);
+            this.button_Add.Location = new System.Drawing.Point(45, 378);
             this.button_Add.Name = "button_Add";
             this.button_Add.Size = new System.Drawing.Size(94, 29);
             this.button_Add.TabIndex = 20;
@@ -226,7 +226,7 @@
             // 
             // button_Edit
             // 
-            this.button_Edit.Location = new System.Drawing.Point(226, 412);
+            this.button_Edit.Location = new System.Drawing.Point(45, 428);
             this.button_Edit.Name = "button_Edit";
             this.button_Edit.Size = new System.Drawing.Size(94, 29);
             this.button_Edit.TabIndex = 21;
@@ -236,7 +236,7 @@
             // 
             // button_Delete
             // 
-            this.button_Delete.Location = new System.Drawing.Point(360, 412);
+            this.button_Delete.Location = new System.Drawing.Point(170, 438);
             this.button_Delete.Name = "button_Delete";
             this.button_Delete.Size = new System.Drawing.Size(94, 29);
             this.button_Delete.TabIndex = 22;
@@ -246,7 +246,7 @@
             // 
             // button_Read
             // 
-            this.button_Read.Location = new System.Drawing.Point(59, 485);
+            this.button_Read.Location = new System.Drawing.Point(45, 485);
             this.button_Read.Name = "button_Read";
             this.button_Read.Size = new System.Drawing.Size(94, 29);
             this.button_Read.TabIndex = 23;
@@ -256,7 +256,7 @@
             // 
             // button_Save
             // 
-            this.button_Save.Location = new System.Drawing.Point(224, 485);
+            this.button_Save.Location = new System.Drawing.Point(170, 378);
             this.button_Save.Name = "button_Save";
             this.button_Save.Size = new System.Drawing.Size(94, 29);
             this.button_Save.TabIndex = 24;
@@ -294,10 +294,10 @@
             this.listView_Immobilie.FullRowSelect = true;
             this.listView_Immobilie.GridLines = true;
             this.listView_Immobilie.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.listView_Immobilie.Location = new System.Drawing.Point(469, 262);
+            this.listView_Immobilie.Location = new System.Drawing.Point(350, 262);
             this.listView_Immobilie.MultiSelect = false;
             this.listView_Immobilie.Name = "listView_Immobilie";
-            this.listView_Immobilie.Size = new System.Drawing.Size(548, 256);
+            this.listView_Immobilie.Size = new System.Drawing.Size(676, 256);
             this.listView_Immobilie.TabIndex = 27;
             this.listView_Immobilie.UseCompatibleStateImageBehavior = false;
             this.listView_Immobilie.View = System.Windows.Forms.View.Details;
@@ -307,32 +307,32 @@
             // Baujahr
             // 
             this.Baujahr.Text = "Const. Year";
-            this.Baujahr.Width = 40;
+            this.Baujahr.Width = 38;
             // 
             // Gründstücksgrüße
             // 
             this.Gründstücksgrüße.Text = "Plot Size";
-            this.Gründstücksgrüße.Width = 40;
+            this.Gründstücksgrüße.Width = 38;
             // 
             // Wohnfläsche
             // 
             this.Wohnfläsche.Text = "LivingSpace";
-            this.Wohnfläsche.Width = 40;
+            this.Wohnfläsche.Width = 38;
             // 
             // Kellerfläsche
             // 
             this.Kellerfläsche.Text = "Keller Space";
-            this.Kellerfläsche.Width = 40;
+            this.Kellerfläsche.Width = 38;
             // 
             // Heizungtyp
             // 
             this.Heizungtyp.Text = "Heating Type";
-            this.Heizungtyp.Width = 90;
+            this.Heizungtyp.Width = 80;
             // 
             // Address
             // 
             this.Address.Text = "Address";
-            this.Address.Width = 290;
+            this.Address.Width = 438;
             // 
             // Form1
             // 
