@@ -16,7 +16,8 @@ namespace ImmobilienVerwaltung
         public Form1()
         {   
             InitializeComponent();
-            
+            //button_Save.Enabled = false; // Disable the save button by default
+           // button_Save.Enabled = button_Add.MouseClick||button_Edit_Click||button_Delete_Click;
             comboBox_Heizung.DataSource = Enum.GetValues(typeof(HeizungSystemTyp));
             ListView.SelectedIndexCollection indexes = listView_Immobilie.SelectedIndices;
 
@@ -107,9 +108,14 @@ namespace ImmobilienVerwaltung
 
         private void button_Save_Click(object sender, EventArgs e)
         {
-            
 
-            SaveListViewItemsToFile();
+            if (listView_Immobilie.Items.Count > 0)
+            {
+                SaveListViewItemsToFile();
+            }
+            
+            
+            
 
         }
        
@@ -178,21 +184,31 @@ namespace ImmobilienVerwaltung
         {
             // string path = @"C:/Users/Public/RealStateData/PropertyInfo.txt";
             //// ListView listView_Immobilie = new ListView();
-            using (StreamWriter writer = new StreamWriter(path))
+            if(listView_Immobilie.Items!=null)
             {
-                foreach (ListViewItem item in listView_Immobilie.Items)
+                using (StreamWriter writer = new StreamWriter(path))
                 {
-                   
-                    List<string> subItems = new List<string>();
-                    for (int i = 0; i < item.SubItems.Count; i++)
+
+
+                    foreach (ListViewItem item in listView_Immobilie.Items)
                     {
-                        subItems.Add(item.SubItems[i].Text);
+
+                        List<string> subItems = new List<string>();
+                        for (int i = 0; i < item.SubItems.Count; i++)
+                        {
+                            subItems.Add(item.SubItems[i].Text);
+                        }
+
+                        // Write the properties to the file
+                        writer.WriteLine(string.Join(",", subItems));
                     }
 
-                    // Write the properties to the file
-                    writer.WriteLine(string.Join(",", subItems));
+
+
                 }
+
             }
+           
             textBox_baujahr.Clear();
             textBox_GründstückSize.Clear();
             textBox_Kellerfläschesize.Clear();
@@ -285,6 +301,7 @@ namespace ImmobilienVerwaltung
 
 
             }
+            button_Save.Enabled = (listView_Immobilie.Items.Count > 0);
 
 
         }
