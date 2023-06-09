@@ -123,15 +123,16 @@ namespace ImmobilienVerwaltung
 
         private void button_Read_Click(object sender, EventArgs e)
         {
-            //listView_Immobilie.Items.Clear();
-
-            
-            try
+            listView_Immobilie.Items.Clear();
+            if (listView_Immobilie.Items.Count == 0)
             {
-                // Read all lines from the text file
-                string[] lines = File.ReadAllLines(path);
+                
+                try
+                {
+                    // Read all lines from the text file
+                    string[] lines = File.ReadAllLines(path);
 
-             
+
 
 
                     // Add subitems to the ListViewItem
@@ -154,12 +155,13 @@ namespace ImmobilienVerwaltung
                     }
 
 
-                
-            }
-            catch (Exception ex)
-            {
-                // MessageBox.Show("Error reading file: " + ex.Message);
-                MessageBox.Show("Your file does not hsve any data!");
+
+                }
+                catch (Exception ex)
+                {
+                    // MessageBox.Show("Error reading file: " + ex.Message);
+                    MessageBox.Show("Your file does not hsve any data!");
+                }
             }
 
 
@@ -302,6 +304,7 @@ namespace ImmobilienVerwaltung
 
             }
             button_Save.Enabled = (listView_Immobilie.Items.Count > 0);
+          
 
 
         }
