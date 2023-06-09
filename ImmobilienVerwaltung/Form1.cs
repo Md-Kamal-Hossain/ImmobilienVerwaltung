@@ -123,10 +123,10 @@ namespace ImmobilienVerwaltung
 
         private void button_Read_Click(object sender, EventArgs e)
         {
-            listView_Immobilie.Items.Clear();
+            
             if (listView_Immobilie.Items.Count == 0)
             {
-                
+                listView_Immobilie.Items.Clear();
                 try
                 {
                     // Read all lines from the text file
