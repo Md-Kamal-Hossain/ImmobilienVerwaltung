@@ -138,6 +138,7 @@ namespace ImmobilienVerwaltung
                         listView_Immobilie.Items.Add(item);
                     }
 
+
                 }
                 catch (Exception ex)
                 {
@@ -238,11 +239,9 @@ namespace ImmobilienVerwaltung
                     item.SubItems[2].Text = textBox_Kellerfläschesize.Text;
                     item.SubItems[3].Text = textBox_WohnfläscheSize.Text;
                     item.SubItems[4].Text = comboBox_Heizung.Text;
-                    item.SubItems[5].Text = $"Address:  Straße-{textBox_StraßeName.Text} ; HouseNo- {textBox_HausNr.Text} ; PLZ- {textBox_PLZ.Text} ; Stadt- {textBox_Stadt.Text}.";
+                    item.SubItems[5].Text = $"Address:  Straße-{textBox_StraßeName.Text}; HouseNo- {textBox_HausNr.Text}; PLZ- {textBox_PLZ.Text}; Stadt- {textBox_Stadt.Text}.";
 
-                }
-
-            
+                }           
            
             
             button_Save.Enabled = (listView_Immobilie.Items.Count > 0);
