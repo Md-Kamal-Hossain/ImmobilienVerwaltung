@@ -83,8 +83,17 @@ namespace ImmobilienVerwaltung
 
         private void button_Edit_Click(object sender, EventArgs e)
         {
-            
-            EditItemInListView();
+            if (listView_Immobilie.SelectedItems.Count  >0)
+            {
+                EditItemInListView();
+            }
+            else
+            {
+                MessageBox.Show("Please select the line you want to edit");
+            }
+           
+
+
         }
        
         private void comboBox_Heizung_SelectedIndexChanged(object sender, EventArgs e)
@@ -215,24 +224,27 @@ namespace ImmobilienVerwaltung
         // Edit an item in the ListView and save it to a file
         private void EditItemInListView( )
         {
+            
+                listView_Immobilie.SelectedIndexChanged += listView_Immobilie_SelectedIndexChanged;
+                int index = listView_Immobilie.SelectedItems[0].Index;
+                if (listView_Immobilie.SelectedItems.Count > 0)
+                {
+                    // Retrieve the selected ListViewItem
+                    ListViewItem item = listView_Immobilie.SelectedItems[0];
 
-            listView_Immobilie.SelectedIndexChanged += listView_Immobilie_SelectedIndexChanged;            
-            int index = listView_Immobilie.SelectedItems[0].Index;
-            if (listView_Immobilie.SelectedItems.Count > 0)
-            {
-                // Retrieve the selected ListViewItem
-                ListViewItem item = listView_Immobilie.SelectedItems[0];
+                    // Update the properties of the ListViewItem               
+                    item.SubItems[0].Text = textBox_baujahr.Text;
+                    item.SubItems[1].Text = textBox_GründstückSize.Text;
+                    item.SubItems[2].Text = textBox_Kellerfläschesize.Text;
+                    item.SubItems[3].Text = textBox_WohnfläscheSize.Text;
+                    item.SubItems[4].Text = comboBox_Heizung.Text;
+                    item.SubItems[5].Text = $"Address:  Straße-{textBox_StraßeName.Text} ; HouseNo- {textBox_HausNr.Text} ; PLZ- {textBox_PLZ.Text} ; Stadt- {textBox_Stadt.Text}.";
 
-                // Update the properties of the ListViewItem
-               
-                item.SubItems[0].Text = textBox_baujahr.Text;
-                item.SubItems[1].Text = textBox_GründstückSize.Text;
-                item.SubItems[2].Text = textBox_Kellerfläschesize.Text;
-                item.SubItems[3].Text = textBox_WohnfläscheSize.Text;
-                item.SubItems[4].Text = comboBox_Heizung.Text;
-                item.SubItems[5].Text = $"Address:  Straße-{textBox_StraßeName.Text} ; HouseNo- {textBox_HausNr.Text} ; PLZ- {textBox_PLZ.Text} ; Stadt- {textBox_Stadt.Text}.";       
+                }
 
-            }
+            
+           
+            
             button_Save.Enabled = (listView_Immobilie.Items.Count > 0);
           
         }
@@ -244,7 +256,7 @@ namespace ImmobilienVerwaltung
             ListViewItem item = listView_Immobilie.SelectedItems[0];
             int index = listView_Immobilie.SelectedItems[0].Index;
 
-            if (index >= 0 && index < listView_Immobilie.Items.Count)
+            if (index > 0) //&& index < listView_Immobilie.Items.Count
             {
                 // Remove the ListViewItem at the specified index
                 listView_Immobilie.Items.RemoveAt(index);
