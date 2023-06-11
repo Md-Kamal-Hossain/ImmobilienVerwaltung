@@ -111,42 +111,21 @@ namespace ImmobilienVerwaltung
         }
         private void button_Read_Click(object sender, EventArgs e)
         {
-            
-            if (listView_Immobilie.Items.Count == 0)
+            FileStream logFileStream = new FileStream(path, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
+
+            if(logFileStream.Length >= 1)
+           
             {
-                listView_Immobilie.Items.Clear();
-                try
-                {
-                    // Read all lines from the text file
-                    string[] lines = File.ReadAllLines(path);
-                    // Add subitems to the ListViewItem
-                    foreach (string line in lines)
-                    {
-                        // Split the line by comma to extract the data
-                        string[] parts = line.Split(',');
-
-                        // Create a new ListViewItem with the first part as text
-                        ListViewItem item = new ListViewItem(parts[0]);
-
-                        // Add subitems to the ListViewItem
-                        for (int i = 1; i < parts.Length; i++)
-                        {
-                            item.SubItems.Add(parts[i]);
-                        }
-
-                        // Add the ListViewItem to the ListView
-                        listView_Immobilie.Items.Add(item);
-                    }
-
-
-                }
-                catch (Exception ex)
-                {
-                    // MessageBox.Show("Error reading file: " + ex.Message);
-                    MessageBox.Show("Your file does not hsve any data!");
-                }
+                ReadDataFromTextFile();
             }
+            else    
+            {
+                MessageBox.Show("Your file does not hsve any data!");
+            }
+                 
+            
         }
+
         private void button_Delete_Click(object sender, EventArgs e)
         {
             
@@ -155,6 +134,42 @@ namespace ImmobilienVerwaltung
         }                                   
         private void textBox_Stadt_TextChanged(object sender, EventArgs e)
         {
+
+        }
+        //Read Text file
+        private void ReadDataFromTextFile()
+        {
+            listView_Immobilie.Items.Clear();
+            try
+            {
+                // Read all lines from the text file
+                string[] lines = File.ReadAllLines(path);
+                // Add subitems to the ListViewItem
+                foreach (string line in lines)
+                {
+                    // Split the line by comma to extract the data
+                    string[] parts = line.Split(',');
+
+                    // Create a new ListViewItem with the first part as text
+                    ListViewItem item = new ListViewItem(parts[0]);
+
+                    // Add subitems to the ListViewItem
+                    for (int i = 1; i < parts.Length; i++)
+                    {
+                        item.SubItems.Add(parts[i]);
+                    }
+
+                    // Add the ListViewItem to the ListView
+                    listView_Immobilie.Items.Add(item);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                // MessageBox.Show("Error reading file: " + ex.Message);
+                MessageBox.Show("Your file does not hsve any data!");
+            }
 
         }
         // Save the ListView items to a text file
