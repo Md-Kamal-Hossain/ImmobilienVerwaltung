@@ -11,7 +11,6 @@ using Microsoft.EntityFrameworkCore;
 namespace ImmobilienVerwaltung
 {  
 
-    //subscriber class
     public  class Immobilie:ModelBase
     {
 
@@ -87,7 +86,7 @@ namespace ImmobilienVerwaltung
         public override string ToString()
         {
             return $"Baujahr: {Baujahr} + Grundstücksgröße: {Gründstücksgrüße} + Wohnflasche: {Wohnfläsche} + Kellerflasche: {Kellerfläsche}+ Heizungtyp: {Heizungtyp}  +  { Address.ToString}";
-            //+"Heizungtyp"+ heizungsanlagetyp;
+           
         }
 
         public Immobilie( int baujahr, double gründstücksgrüße, double wohnfläsche, double kellerfläsche, HeizungSystemTyp heiz, Address address) 
@@ -177,8 +176,6 @@ namespace ImmobilienVerwaltung
                 OnPropertyChanged(nameof(HausNo));
             }
         }
-
-
        
         public Address(string straße, string hausno, string plz, string stadt)
         {
@@ -215,10 +212,7 @@ namespace ImmobilienVerwaltung
             }
         }
         public override string ToString()
-        {
-
-            //return $" Address:  Straße.  {Straße} ,   HouseNo. {HausNo} ,  PLZ. {PLZ} ,  Stadt. {Stadt}.";
-            // return $" Address:  Straße- {Straße}  , HouseNo- {HausNo} , PLZ- {PLZ} , Stadt- {Stadt}.";
+        {            
             return $" Address:  Straße- {Straße} ; HouseNo-{HausNo} ; PLZ- {PLZ} ; Stadt- {Stadt}.";
         }
 

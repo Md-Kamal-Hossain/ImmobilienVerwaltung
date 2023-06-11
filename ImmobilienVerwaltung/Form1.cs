@@ -10,20 +10,16 @@ namespace ImmobilienVerwaltung
     {
        
         ImmobiliVerhaltung immoVerwaltung = new ImmobiliVerhaltung();
-        string path = @"C:/Users/Public/RealEstateData/PropertyInfo.txt";
-        
-
+        string path = @"C:/Users/Public/RealEstateData/PropertyInfo.txt";        
         public Form1()
         {   
             InitializeComponent();
-            //button_Save.Enabled = false; // Disable the save button by default
-           // button_Save.Enabled = button_Add.MouseClick||button_Edit_Click||button_Delete_Click;
+               
             comboBox_Heizung.DataSource = Enum.GetValues(typeof(HeizungSystemTyp));
             ListView.SelectedIndexCollection indexes = listView_Immobilie.SelectedIndices;
 
         }
-        //Form1 constructor ends here
-        
+             
         public void listView_Immobilie_SelectedIndexChanged(object sender, EventArgs e)
         {
           
@@ -35,25 +31,15 @@ namespace ImmobilienVerwaltung
                 textBox_WohnfläscheSize.Text = this.listView_Immobilie.Items[index].SubItems[2].Text;
                 textBox_Kellerfläschesize.Text = this.listView_Immobilie.Items[index].SubItems[3].Text;
                 comboBox_Heizung.Text = this.listView_Immobilie.Items[index].SubItems[4].Text;
-                char[] separators = { ';','-','.',':'};
-                             
-                                                      
-                string[] parts2 = this.listView_Immobilie.Items[index].SubItems[5].Text.Split(separators);
-                //string[] part22 = parts2[0].Split(Sep);  
-                
-
-               
+                char[] separators = { ';','-','.',':'};                                                                               
+                string[] parts2 = this.listView_Immobilie.Items[index].SubItems[5].Text.Split(separators);                                             
                 textBox_StraßeName.Text = parts2[2];
                 textBox_HausNr.Text = parts2[4];
                 textBox_PLZ.Text = parts2[6];
                 textBox_Stadt.Text = parts2[8];
-
-
-
             }
 
-        }
-           
+        }           
         private void label1_Click(object sender, EventArgs e)
         {
 
@@ -105,7 +91,6 @@ namespace ImmobilienVerwaltung
         {
 
         }
-
         private void button_Save_Click(object sender, EventArgs e)
         {
 
@@ -114,13 +99,7 @@ namespace ImmobilienVerwaltung
                 SaveListViewItemsToFile();
             }
             
-            
-            
-
         }
-       
-
-
         private void button_Read_Click(object sender, EventArgs e)
         {
             
@@ -131,10 +110,6 @@ namespace ImmobilienVerwaltung
                 {
                     // Read all lines from the text file
                     string[] lines = File.ReadAllLines(path);
-
-
-
-
                     // Add subitems to the ListViewItem
                     foreach (string line in lines)
                     {
@@ -154,8 +129,6 @@ namespace ImmobilienVerwaltung
                         listView_Immobilie.Items.Add(item);
                     }
 
-
-
                 }
                 catch (Exception ex)
                 {
@@ -163,20 +136,13 @@ namespace ImmobilienVerwaltung
                     MessageBox.Show("Your file does not hsve any data!");
                 }
             }
-
-
         }
-
-
         private void button_Delete_Click(object sender, EventArgs e)
         {
             
             DeleteItemFromListViewAndSave();
            
-        }
-       
-                    
-        
+        }                                   
         private void textBox_Stadt_TextChanged(object sender, EventArgs e)
         {
 
@@ -184,14 +150,11 @@ namespace ImmobilienVerwaltung
         // Save the ListView items to a text file
         private void SaveListViewItemsToFile()
         {
-            // string path = @"C:/Users/Public/RealStateData/PropertyInfo.txt";
-            //// ListView listView_Immobilie = new ListView();
+           
             if(listView_Immobilie.Items!=null)
             {
                 using (StreamWriter writer = new StreamWriter(path))
                 {
-
-
                     foreach (ListViewItem item in listView_Immobilie.Items)
                     {
 
@@ -200,12 +163,9 @@ namespace ImmobilienVerwaltung
                         {
                             subItems.Add(item.SubItems[i].Text);
                         }
-
                         // Write the properties to the file
                         writer.WriteLine(string.Join(",", subItems));
                     }
-
-
 
                 }
 
@@ -215,44 +175,19 @@ namespace ImmobilienVerwaltung
             textBox_GründstückSize.Clear();
             textBox_Kellerfläschesize.Clear();
             textBox_WohnfläscheSize.Clear();
+            comboBox_Heizung.SelectedIndex = -1;
             textBox_StraßeName.Clear();
             textBox_HausNr.Clear();
             textBox_PLZ.Clear();
             textBox_Stadt.Clear();
-            //if (!File.Exists(path))
-            //{
-            //    using (var stream = File.Create(path)) ;
-            //}
-            //else
-            //{
-            //    using (TextWriter tw = new StreamWriter(path))
-            //    {
-
-            //    for (int i = 0; i < listView_Immobilie.Items.Count; i++)
-            //    {
-            //        tw.WriteLine(listView_Immobilie.Items[i].SubItems[0].Text + "," + listView_Immobilie.Items[i].SubItems[1].Text
-            //    + "," + listView_Immobilie.Items[i].SubItems[2].Text + "," + listView_Immobilie.Items[i].SubItems[3].Text + ","
-            //    + listView_Immobilie.Items[i].SubItems[4].Text + "," + listView_Immobilie.Items[i].SubItems[5].Text);
-            //    }
-
-            //    }
-
-            //}
+            
         }
         // Add an item to the ListView and save it to a file
         private void AddItemToListViewAndSave()
-        {
-            //// Create a new ListViewItem
-            //HeizungSystemTyp heizungT = new HeizungSystemTyp();
+        {              
             Address ad = new Address(textBox_StraßeName.Text, textBox_HausNr.Text, textBox_PLZ.Text, textBox_Stadt.Text);
-            //Immobilie immo = new Immobilie(Convert.ToInt32(textBox_baujahr.Text), Convert.ToDouble(textBox_GründstückSize.Text),
-            //    Convert.ToDouble(textBox_WohnfläscheSize.Text), Convert.ToDouble(textBox_Kellerfläschesize.Text), heizungT, ad);
-            //immo.GetGesamtWohnfläche(Convert.ToDouble(textBox_GründstückSize.Text), Convert.ToDouble(textBox_WohnfläscheSize.Text));
-            //immoVerwaltung.AddImmobilie(immo);
-
             ListViewItem item = new ListViewItem(textBox_baujahr.Text);
-            List<string> subItems = new List<string>();
-           // subItems.Add(textBox_baujahr.Text);
+            List<string> subItems = new List<string>();           
             subItems.Add(textBox_GründstückSize.Text);
             subItems.Add(textBox_WohnfläscheSize.Text);
             subItems.Add(textBox_Kellerfläschesize.Text);
@@ -271,6 +206,7 @@ namespace ImmobilienVerwaltung
             textBox_GründstückSize.Clear();
             textBox_Kellerfläschesize.Clear();
             textBox_WohnfläscheSize.Clear();
+            comboBox_Heizung.SelectedIndex = -1;
             textBox_StraßeName.Clear();
             textBox_HausNr.Clear();
             textBox_PLZ.Clear();
@@ -280,9 +216,7 @@ namespace ImmobilienVerwaltung
         private void EditItemInListViewAndSave( )
         {
 
-            listView_Immobilie.SelectedIndexChanged += listView_Immobilie_SelectedIndexChanged;
-
-            //ListViewItem item = listView_Immobilie.SelectedItems[0];
+            listView_Immobilie.SelectedIndexChanged += listView_Immobilie_SelectedIndexChanged;            
             int index = listView_Immobilie.SelectedItems[0].Index;
             if (listView_Immobilie.SelectedItems.Count > 0)
             {
@@ -290,23 +224,17 @@ namespace ImmobilienVerwaltung
                 ListViewItem item = listView_Immobilie.SelectedItems[0];
 
                 // Update the properties of the ListViewItem
-                //item.Text = "New Text";
+               
                 item.SubItems[0].Text = textBox_baujahr.Text;
                 item.SubItems[1].Text = textBox_GründstückSize.Text;
                 item.SubItems[2].Text = textBox_Kellerfläschesize.Text;
                 item.SubItems[3].Text = textBox_WohnfläscheSize.Text;
                 item.SubItems[4].Text = comboBox_Heizung.Text;
-                item.SubItems[5].Text = $"Address:  Straße-{textBox_StraßeName.Text} ; HouseNo- {textBox_HausNr.Text} ; PLZ- {textBox_PLZ.Text} ; Stadt- {textBox_Stadt.Text}.";
-                
-
-
-
+                item.SubItems[5].Text = $"Address:  Straße-{textBox_StraßeName.Text} ; HouseNo- {textBox_HausNr.Text} ; PLZ- {textBox_PLZ.Text} ; Stadt- {textBox_Stadt.Text}.";       
 
             }
             button_Save.Enabled = (listView_Immobilie.Items.Count > 0);
           
-
-
         }
 
         // Delete an item from the ListView and save it to a file
@@ -319,24 +247,19 @@ namespace ImmobilienVerwaltung
             if (index >= 0 && index < listView_Immobilie.Items.Count)
             {
                 // Remove the ListViewItem at the specified index
-                listView_Immobilie.Items.RemoveAt(index);
-
-                // Save the updated ListView items to a file
-                //SaveListViewItemsToFile();
+                listView_Immobilie.Items.RemoveAt(index);                
             }
                 textBox_baujahr.Clear();
                 textBox_GründstückSize.Clear();
                 textBox_Kellerfläschesize.Clear();
                 textBox_WohnfläscheSize.Clear();
+                comboBox_Heizung.SelectedIndex = -1;
                 textBox_StraßeName.Clear();
                 textBox_HausNr.Clear();
                 textBox_PLZ.Clear();
                 textBox_Stadt.Clear();
+            
         }
-
-
-
-
 
     }
 }

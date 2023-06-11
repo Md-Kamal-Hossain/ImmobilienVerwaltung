@@ -8,9 +8,11 @@ namespace ImmobilienVerwaltung
 {
     public enum HeizungSystemTyp
     {
-        ÖlHeizung = 0,
-        HolzHeizung = 1,
-        GazHeizung = 2
+       
+        None = 0,
+        ÖlHeizung = 1,
+        HolzHeizung = 2,
+        GazHeizung = 3
 
     }
 }
