@@ -24,7 +24,8 @@ namespace ImmobilienVerwaltung
             immobilienList.Add(immobilie);
             
         }
-  
+        
+
     }
 }
    
