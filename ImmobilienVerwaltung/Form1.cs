@@ -296,7 +296,7 @@ namespace ImmobilienVerwaltung
                 item.SubItems[2].Text = textBox_Kellerfl‰schesize.Text;
                 item.SubItems[3].Text = textBox_Wohnfl‰scheSize.Text;
                 item.SubItems[4].Text = comboBox_Heizung.Text;
-                item.SubItems[5].Text = $"Address:  Straﬂe-{textBox_StraﬂeName.Text} , HouseNo- {textBox_HausNr.Text} ; PLZ- {textBox_PLZ.Text} ; Stadt- {textBox_Stadt.Text}.";
+                item.SubItems[5].Text = $"Address:  Straﬂe-{textBox_StraﬂeName.Text} ; HouseNo- {textBox_HausNr.Text} ; PLZ- {textBox_PLZ.Text} ; Stadt- {textBox_Stadt.Text}.";
                 
 
 
