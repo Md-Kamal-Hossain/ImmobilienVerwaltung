@@ -110,7 +110,17 @@ namespace ImmobilienVerwaltung
         }
         private void button_Read_Click(object sender, EventArgs e)
         {
-            ReadDataFromTextFile();
+            StreamReader reader = new StreamReader(path);
+            string line;
+            if((line = reader.ReadLine()) != null)
+            {
+                ReadDataFromTextFile();
+            }
+            else
+            {
+                MessageBox.Show("Your file does not have any data!");
+            }
+        
 
 
 
@@ -177,7 +187,7 @@ namespace ImmobilienVerwaltung
         private void SaveListViewItemsToFile()
         {
 
-            if (listView_Immobilie.Items != null)
+            if (listView_Immobilie.SelectedItems.Count > 0)
             {
                 using (StreamWriter writer = new StreamWriter(path))
             {
