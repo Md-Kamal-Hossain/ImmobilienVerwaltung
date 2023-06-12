@@ -8,7 +8,7 @@ namespace ImmobilienVerwaltung
 {
     public partial class Form1 : Form
     {
-
+        //creating an object of ImmobiliVerhaltung-class
         ImmobiliVerhaltung immoVerwaltung = new ImmobiliVerhaltung();
         string path = @"C:/Users/Public/RealEstateData/PropertyINFO.txt";
         public Form1()
@@ -16,21 +16,25 @@ namespace ImmobilienVerwaltung
             InitializeComponent();
 
             comboBox_Heizung.DataSource = Enum.GetValues(typeof(HeizungSystemTyp));
-            ListView.SelectedIndexCollection indexes = listView_Immobilie.SelectedIndices;
+           // ListView.SelectedIndexCollection indexes = this.listView_Immobilie.SelectedIndices;
 
         }
 
         public void listView_Immobilie_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-            ListView.SelectedIndexCollection indexes = this.listView_Immobilie.SelectedIndices;
+            // SelectedIndices property returns collection of indices wich is stored in indexes
+            // which is a instance of ListView.SelectedIndexCollection
+            ListView.SelectedIndexCollection indexes = listView_Immobilie.SelectedIndices;
             foreach (int index in indexes)
             {
+                //assigning values(subitems) from listview to the corresponding textboxes
                 textBox_baujahr.Text = this.listView_Immobilie.Items[index].SubItems[0].Text;
                 textBox_GründstückSize.Text = this.listView_Immobilie.Items[index].SubItems[1].Text;
                 textBox_WohnfläscheSize.Text = this.listView_Immobilie.Items[index].SubItems[2].Text;
                 textBox_Kellerfläschesize.Text = this.listView_Immobilie.Items[index].SubItems[3].Text;
                 comboBox_Heizung.Text = this.listView_Immobilie.Items[index].SubItems[4].Text;
+                //splitting address into Street, housno, PLZ and Stadt
+                //so that asign those to corresponding textboxes
                 char[] separators = { ';', '-', '.', ':' };
                 string[] parts2 = this.listView_Immobilie.Items[index].SubItems[5].Text.Split(separators);
                 textBox_StraßeName.Text = parts2[2];
@@ -89,14 +93,16 @@ namespace ImmobilienVerwaltung
         }
 
         private void button_Edit_Click(object sender, EventArgs e)
-        {
+        {  
+            //only call the method if an item from litview gets selected
             if (listView_Immobilie.SelectedItems.Count > 0)
             {
                 EditItemInListView();
             }
             else
-            {
-                MessageBox.Show("Please select the line you want to edit");
+            {  
+                //Messege if click on edit without selecting an item
+                MessageBox.Show("Please select the line you want to edit", "Missing Information", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
 
@@ -109,10 +115,8 @@ namespace ImmobilienVerwaltung
         }
         private void button_Save_Click(object sender, EventArgs e)
         {
-
-           
-                SaveListViewItemsToFile();
-            
+                      
+                SaveListViewItemsToFile();            
 
         }
         private void button_Read_Click(object sender, EventArgs e)
@@ -129,10 +133,6 @@ namespace ImmobilienVerwaltung
                 MessageBox.Show("Your file does not have any data!");
             }
         
-
-
-
-
         }
 
         private void button_Delete_Click(object sender, EventArgs e)
@@ -157,7 +157,8 @@ namespace ImmobilienVerwaltung
         }
         //Read Text file
         private void ReadDataFromTextFile()
-        {
+        {  
+            //clear ListView control before reading; otherwise redundent might be shown data
             listView_Immobilie.Items.Clear();
             using (StreamReader reader = new StreamReader(path))
             {
@@ -188,34 +189,32 @@ namespace ImmobilienVerwaltung
                 }
                 catch (Exception ex)
                 {
-                    // MessageBox.Show("Error reading file: " + ex.Message);
+                    
                     MessageBox.Show("Your file does not hsve any data!");
                 }
                 reader.Dispose();
 
             }
-            //FileStream fileStream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.None);
-          
-
-
-
+            
 
         }
         // Save the ListView items to a text file
         private void SaveListViewItemsToFile()
         {
            
-                // The file is opened with FileAccess.Read to check if it's accessible
-                
-                using (StreamWriter writer = new StreamWriter(path)) //var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+               // instance of Streamwriter                 
+                using (StreamWriter writer = new StreamWriter(path))
                 {
+                    //iterate through all the item in listview_Immobilie instance
                     foreach (ListViewItem item in listView_Immobilie.Items)
                     {
-
+                        //Empty list
                         List<string> subItems = new List<string>();
+                        //iterate through all the subitems of an item
                         for (int i = 0; i < item.SubItems.Count; i++)
                         {
-                            subItems.Add(item.SubItems[i].Text);
+                        //populating the emptylist through appending
+                        subItems.Add(item.SubItems[i].Text);
                         }
                         // Write the properties to the file
                         writer.WriteLine(string.Join(",", subItems));
@@ -224,29 +223,33 @@ namespace ImmobilienVerwaltung
 
                 }
 
-            textBox_baujahr.Clear();
-            textBox_GründstückSize.Clear();
-            textBox_Kellerfläschesize.Clear();
-            textBox_WohnfläscheSize.Clear();
-            comboBox_Heizung.SelectedIndex = -1;
-            textBox_StraßeName.Clear();
-            textBox_HausNr.Clear();
-            textBox_PLZ.Clear();
-            textBox_Stadt.Clear();
+                        textBox_baujahr.Clear();
+                        textBox_GründstückSize.Clear();
+                        textBox_Kellerfläschesize.Clear();
+                        textBox_WohnfläscheSize.Clear();
+                        comboBox_Heizung.SelectedIndex = -1;
+                        textBox_StraßeName.Clear();
+                        textBox_HausNr.Clear();
+                        textBox_PLZ.Clear();
+                        textBox_Stadt.Clear();
 
         }
         // Add an item to the ListView and save it to a file
         private void AddItemToListView()
         {
+            //creates instance of Address 
             Address ad = new Address(textBox_StraßeName.Text, textBox_HausNr.Text, textBox_PLZ.Text, textBox_Stadt.Text);
+            // creates instance of  ListviewItem 
             ListViewItem item = new ListViewItem(textBox_baujahr.Text);
+            // creates instance of List 
             List<string> subItems = new List<string>();
+            //apppending subitems
             subItems.Add(textBox_GründstückSize.Text);
             subItems.Add(textBox_WohnfläscheSize.Text);
             subItems.Add(textBox_Kellerfläschesize.Text);
             subItems.Add(comboBox_Heizung.Text);
             subItems.Add(ad.ToString());
-
+            //iterate through all the subitems and add to the item
             foreach (string subItem in subItems)
             {
                 item.SubItems.Add(subItem);
@@ -268,15 +271,17 @@ namespace ImmobilienVerwaltung
         // Edit an item in the ListView and save it to a file
         private void EditItemInListView()
         {
-
+            //subscribing listView_Immobilie_SelectedIndexChanged to the event SelectedIndexChanged
             listView_Immobilie.SelectedIndexChanged += listView_Immobilie_SelectedIndexChanged;
-            int index = listView_Immobilie.SelectedItems[0].Index;
+
             if (listView_Immobilie.SelectedItems.Count > 0)
             {
                 // Retrieve the selected ListViewItem
+                // Here we only edit one line at a time
                 ListViewItem item = listView_Immobilie.SelectedItems[0];
 
-                // Update the properties of the ListViewItem               
+                // Update the properties of the ListViewItem
+                // Asssigning value from textboxes to to respective subitems 
                 item.SubItems[0].Text = textBox_baujahr.Text;
                 item.SubItems[1].Text = textBox_GründstückSize.Text;
                 item.SubItems[2].Text = textBox_Kellerfläschesize.Text;
@@ -288,10 +293,12 @@ namespace ImmobilienVerwaltung
         }
         private void DeleteItemFromListView()
         {
+            //subscribing listView_Immobilie_SelectedIndexChanged to the event SelectedIndexChanged
             listView_Immobilie.SelectedIndexChanged += listView_Immobilie_SelectedIndexChanged;
+            // Here we can select one line at a time and delete one line at a time
             ListViewItem item = listView_Immobilie.SelectedItems[0];
             int index = listView_Immobilie.SelectedItems[0].Index;
-
+            //For future if want to delete more than one lines
             if (index >= 0 && index < listView_Immobilie.Items.Count)
             {
                 // Remove the ListViewItem at the specified index
@@ -306,18 +313,8 @@ namespace ImmobilienVerwaltung
             textBox_HausNr.Clear();
             textBox_PLZ.Clear();
             textBox_Stadt.Clear();
-        }
+        }          
+    }
 
-
-            // button_Save.Enabled = (listView_Immobilie.Items.Count > 0);
-
-        }
-
-    // Delete an item from the ListView and save it to a file
-
-
-
-
-
-
+ 
 }
