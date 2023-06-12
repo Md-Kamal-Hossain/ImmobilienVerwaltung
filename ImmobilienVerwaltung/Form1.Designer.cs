@@ -60,6 +60,7 @@
             this.Kellerfläsche = new System.Windows.Forms.ColumnHeader();
             this.Heizungtyp = new System.Windows.Forms.ColumnHeader();
             this.Address = new System.Windows.Forms.ColumnHeader();
+            this.TotalArea = new System.Windows.Forms.ColumnHeader();
             this.SuspendLayout();
             // 
             // label_Immobilie
@@ -289,6 +290,7 @@
             this.Gründstücksgrüße,
             this.Wohnfläsche,
             this.Kellerfläsche,
+            this.TotalArea,
             this.Heizungtyp,
             this.Address});
             this.listView_Immobilie.FullRowSelect = true;
@@ -333,6 +335,10 @@
             // 
             this.Address.Text = "Address";
             this.Address.Width = 438;
+            // 
+            // TotalArea
+            // 
+            this.TotalArea.Text = "TotalArea";
             // 
             // Form1
             // 
@@ -407,5 +413,6 @@
         private ColumnHeader Kellerfläsche;
         private ColumnHeader Wohnfläsche;
         public ListView listView_Immobilie;
+        private ColumnHeader TotalArea;
     }
 }

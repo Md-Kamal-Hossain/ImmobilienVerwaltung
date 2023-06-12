@@ -32,11 +32,11 @@ namespace ImmobilienVerwaltung
                 textBox_GründstückSize.Text = this.listView_Immobilie.Items[index].SubItems[1].Text;
                 textBox_WohnfläscheSize.Text = this.listView_Immobilie.Items[index].SubItems[2].Text;
                 textBox_Kellerfläschesize.Text = this.listView_Immobilie.Items[index].SubItems[3].Text;
-                comboBox_Heizung.Text = this.listView_Immobilie.Items[index].SubItems[4].Text;
+                comboBox_Heizung.Text = this.listView_Immobilie.Items[index].SubItems[5].Text;
                 //splitting address into Street, housno, PLZ and Stadt
                 //so that asign those to corresponding textboxes
                 char[] separators = { ';', '-', '.', ':' };
-                string[] parts2 = this.listView_Immobilie.Items[index].SubItems[5].Text.Split(separators);
+                string[] parts2 = this.listView_Immobilie.Items[index].SubItems[6].Text.Split(separators);
                 textBox_StraßeName.Text = parts2[2];
                 textBox_HausNr.Text = parts2[4];
                 textBox_PLZ.Text = parts2[6];
@@ -237,8 +237,17 @@ namespace ImmobilienVerwaltung
         // Add an item to the ListView and save it to a file
         private void AddItemToListView()
         {
-            //creates instance of Address 
+            HeizungSystemTyp heizungT = new HeizungSystemTyp();
             Address ad = new Address(textBox_StraßeName.Text, textBox_HausNr.Text, textBox_PLZ.Text, textBox_Stadt.Text);
+            Immobilie immo = new Immobilie(Convert.ToInt32(textBox_baujahr.Text), Convert.ToDouble(textBox_GründstückSize.Text),
+                Convert.ToDouble(textBox_WohnfläscheSize.Text), Convert.ToDouble(textBox_Kellerfläschesize.Text), heizungT, ad);
+            immo.GetGesamtWohnfläche(Convert.ToDouble(textBox_Kellerfläschesize.Text), Convert.ToDouble(textBox_WohnfläscheSize.Text));
+            //immoVerwaltung.AddImmobilie(immo);
+            var doubleKeller = Convert.ToDouble(textBox_Kellerfläschesize.Text);
+            var doubleWohnflasche = Convert.ToDouble(textBox_WohnfläscheSize.Text);
+            double TotalWhonflasche = immo.GetGesamtWohnfläche(doubleKeller, doubleWohnflasche);
+            //creates instance of Address 
+            //Address ad = new Address(textBox_StraßeName.Text, textBox_HausNr.Text, textBox_PLZ.Text, textBox_Stadt.Text);
             // creates instance of  ListviewItem 
             ListViewItem item = new ListViewItem(textBox_baujahr.Text);
             // creates instance of List 
@@ -247,6 +256,7 @@ namespace ImmobilienVerwaltung
             subItems.Add(textBox_GründstückSize.Text);
             subItems.Add(textBox_WohnfläscheSize.Text);
             subItems.Add(textBox_Kellerfläschesize.Text);
+            subItems.Add(TotalWhonflasche.ToString());
             subItems.Add(comboBox_Heizung.Text);
             subItems.Add(ad.ToString());
             //iterate through all the subitems and add to the item
@@ -271,6 +281,11 @@ namespace ImmobilienVerwaltung
         // Edit an item in the ListView and save it to a file
         private void EditItemInListView()
         {
+            HeizungSystemTyp heizungT = new HeizungSystemTyp();
+            Address ad = new Address(textBox_StraßeName.Text, textBox_HausNr.Text, textBox_PLZ.Text, textBox_Stadt.Text);
+            Immobilie immo = new Immobilie(Convert.ToInt32(textBox_baujahr.Text), Convert.ToDouble(textBox_GründstückSize.Text),
+                Convert.ToDouble(textBox_WohnfläscheSize.Text), Convert.ToDouble(textBox_Kellerfläschesize.Text), heizungT, ad);
+            immo.GetGesamtWohnfläche(Convert.ToDouble(textBox_Kellerfläschesize.Text), Convert.ToDouble(textBox_WohnfläscheSize.Text));
             //subscribing listView_Immobilie_SelectedIndexChanged to the event SelectedIndexChanged
             listView_Immobilie.SelectedIndexChanged += listView_Immobilie_SelectedIndexChanged;
 
@@ -286,8 +301,12 @@ namespace ImmobilienVerwaltung
                 item.SubItems[1].Text = textBox_GründstückSize.Text;
                 item.SubItems[2].Text = textBox_Kellerfläschesize.Text;
                 item.SubItems[3].Text = textBox_WohnfläscheSize.Text;
-                item.SubItems[4].Text = comboBox_Heizung.Text;
-                item.SubItems[5].Text = $"Address:  Straße-{textBox_StraßeName.Text}; HouseNo- {textBox_HausNr.Text}; PLZ- {textBox_PLZ.Text}; Stadt- {textBox_Stadt.Text}.";
+                var doubleKeller = Convert.ToDouble(textBox_Kellerfläschesize.Text);
+                var doubleWohnflasche = Convert.ToDouble(textBox_WohnfläscheSize.Text);
+                double TotalWhonflasche = immo.GetGesamtWohnfläche(doubleKeller, doubleWohnflasche);
+                item.SubItems[4].Text = TotalWhonflasche.ToString();
+                item.SubItems[5].Text = comboBox_Heizung.Text;
+                item.SubItems[6].Text = $"Address:  Straße-{textBox_StraßeName.Text}; HouseNo- {textBox_HausNr.Text}; PLZ- {textBox_PLZ.Text}; Stadt- {textBox_Stadt.Text}.";
             }
 
         }
