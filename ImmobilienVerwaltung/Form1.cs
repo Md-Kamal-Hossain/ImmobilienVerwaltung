@@ -10,7 +10,7 @@ namespace ImmobilienVerwaltung
     {
 
         ImmobiliVerhaltung immoVerwaltung = new ImmobiliVerhaltung();
-        string path = @"C:/Users/Public/RealEstateData/PropertyInfo.txt";
+        string path = @"C:/Users/Public/RealEstateData/PropertyINFO.txt";
         public Form1()
         {
             InitializeComponent();
@@ -53,8 +53,15 @@ namespace ImmobilienVerwaltung
         public void button_Add_Click(object sender, EventArgs e)
 
         {
-
-            AddItemToListView();
+            if (string.IsNullOrEmpty(textBox_baujahr.Text) && string.IsNullOrEmpty(textBox_GründstückSize.Text) && string.IsNullOrEmpty(textBox_WohnfläscheSize.Text))
+            {
+                MessageBox.Show("Please fill in all the required textboxes.", "Missing Information", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                AddItemToListView();
+            }
+           
 
         }
 
@@ -115,6 +122,7 @@ namespace ImmobilienVerwaltung
             if((line = reader.ReadLine()) != null)
             {
                 ReadDataFromTextFile();
+                reader.Close();
             }
             else
             {
@@ -151,61 +159,70 @@ namespace ImmobilienVerwaltung
         private void ReadDataFromTextFile()
         {
             listView_Immobilie.Items.Clear();
-            try
+            using (StreamReader reader = new StreamReader(path))
             {
-                // Read all lines from the text file
-                string[] lines = File.ReadAllLines(path);
-                // Add subitems to the ListViewItem
-                foreach (string line in lines)
+                try
                 {
-                    // Split the line by comma to extract the data
-                    string[] parts = line.Split(',');
-
-                    // Create a new ListViewItem with the first part as text
-                    ListViewItem item = new ListViewItem(parts[0]);
-
+                    // Read all lines from the text file
+                    string[] lines = File.ReadAllLines(path);
                     // Add subitems to the ListViewItem
-                    for (int i = 1; i < parts.Length; i++)
+                    foreach (string line in lines)
                     {
-                        item.SubItems.Add(parts[i]);
+                        // Split the line by comma to extract the data
+                        string[] parts = line.Split(',');
+
+                        // Create a new ListViewItem with the first part as text
+                        ListViewItem item = new ListViewItem(parts[0]);
+
+                        // Add subitems to the ListViewItem
+                        for (int i = 1; i < parts.Length; i++)
+                        {
+                            item.SubItems.Add(parts[i]);
+                        }
+
+                        // Add the ListViewItem to the ListView
+                        listView_Immobilie.Items.Add(item);
                     }
+                    
 
-                    // Add the ListViewItem to the ListView
-                    listView_Immobilie.Items.Add(item);
                 }
-
+                catch (Exception ex)
+                {
+                    // MessageBox.Show("Error reading file: " + ex.Message);
+                    MessageBox.Show("Your file does not hsve any data!");
+                }
+                reader.Dispose();
 
             }
-            catch (Exception ex)
-            {
-                // MessageBox.Show("Error reading file: " + ex.Message);
-                MessageBox.Show("Your file does not hsve any data!");
-            }
+            //FileStream fileStream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.None);
+          
+
+
+
 
         }
         // Save the ListView items to a text file
         private void SaveListViewItemsToFile()
         {
-
-            if (listView_Immobilie.SelectedItems.Count > 0)
-            {
-                using (StreamWriter writer = new StreamWriter(path))
-            {
-                foreach (ListViewItem item in listView_Immobilie.Items)
+           
+                // The file is opened with FileAccess.Read to check if it's accessible
+                
+                using (StreamWriter writer = new StreamWriter(path)) //var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
                 {
-
-                    List<string> subItems = new List<string>();
-                    for (int i = 0; i < item.SubItems.Count; i++)
+                    foreach (ListViewItem item in listView_Immobilie.Items)
                     {
-                        subItems.Add(item.SubItems[i].Text);
+
+                        List<string> subItems = new List<string>();
+                        for (int i = 0; i < item.SubItems.Count; i++)
+                        {
+                            subItems.Add(item.SubItems[i].Text);
+                        }
+                        // Write the properties to the file
+                        writer.WriteLine(string.Join(",", subItems));
+
                     }
-                    // Write the properties to the file
-                    writer.WriteLine(string.Join(",", subItems));
+
                 }
-
-            }
-
-             }
 
             textBox_baujahr.Clear();
             textBox_GründstückSize.Clear();
