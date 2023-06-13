@@ -9,11 +9,13 @@ namespace ImmobilienVerwaltung
     public partial class Form1 : Form
     {
         //creating an object of ImmobiliVerhaltung-class
-        ImmobiliVerhaltung immoVerwaltung = new ImmobiliVerhaltung();
+        //ImmobiliVerhaltung immoVerwaltung = new ImmobiliVerhaltung();
         string path = @"C:/Users/Public/RealEstateData/PropertyINFO.txt";
         public Form1()
         {
             InitializeComponent();
+            
+            
 
             comboBox_Heizung.DataSource = Enum.GetValues(typeof(HeizungSystemTyp));
            
@@ -22,6 +24,7 @@ namespace ImmobilienVerwaltung
 
         public void listView_Immobilie_SelectedIndexChanged(object sender, EventArgs e)
         {
+           
             // SelectedIndices property returns collection of indices wich is stored in indexes
             // which is a instance of ListView.SelectedIndexCollection
             ListView.SelectedIndexCollection indexes = listView_Immobilie.SelectedIndices;
@@ -70,7 +73,8 @@ namespace ImmobilienVerwaltung
         public void button_Add_Click(object sender, EventArgs e)
 
         {
-            if (string.IsNullOrEmpty(textBox_baujahr.Text) && string.IsNullOrEmpty(textBox_GründstückSize.Text) && string.IsNullOrEmpty(textBox_WohnfläscheSize.Text))
+            if (string.IsNullOrEmpty(textBox_baujahr.Text) && string.IsNullOrEmpty(textBox_GründstückSize.Text)
+                && string.IsNullOrEmpty(textBox_WohnfläscheSize.Text) && string.IsNullOrEmpty(textBox_StraßeName.Text) && string.IsNullOrEmpty(textBox_HausNr.Text))
             {
                 MessageBox.Show("Please fill in all the required textboxes.", "Missing Information", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
@@ -152,8 +156,13 @@ namespace ImmobilienVerwaltung
         {
             if (listView_Immobilie.SelectedItems.Count > 0)
             {
+                DialogResult result = MessageBox.Show("Are you sure you want to delete?", "Delete Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                DeleteItemFromListView();
+                if (result == DialogResult.Yes)
+                {
+                    DeleteItemFromListView();
+                }
+               
             }
             else
             {
@@ -176,7 +185,7 @@ namespace ImmobilienVerwaltung
             using (StreamReader reader = new StreamReader(path))
             {
                 try
-                {
+                {   
                     // Read all lines from the text file
                     string[] lines = File.ReadAllLines(path);
                     // Add subitems to the ListViewItem
@@ -201,23 +210,14 @@ namespace ImmobilienVerwaltung
 
                 }
                 catch (Exception ex)
-                {
-                    
-                    MessageBox.Show("Your file does not hsve any data!");
+                {                   
+                   MessageBox.Show("An error occurred: " + ex.Message);
                 }
                 reader.Dispose();
 
 
             }
-            //textBox_baujahr.Clear();
-            //textBox_GründstückSize.Clear();
-            //textBox_Kellerfläschesize.Clear();
-            //textBox_WohnfläscheSize.Clear();
-            //comboBox_Heizung.SelectedIndex = -1;
-            //textBox_StraßeName.Clear();
-            //textBox_HausNr.Clear();
-            //textBox_PLZ.Clear();
-            //textBox_Stadt.Clear();
+            
 
 
         }
@@ -263,14 +263,14 @@ namespace ImmobilienVerwaltung
             HeizungSystemTyp heizungT = new HeizungSystemTyp();
             Address ad = new Address(textBox_StraßeName.Text, textBox_HausNr.Text, textBox_PLZ.Text, textBox_Stadt.Text);
             Immobilie immo = new Immobilie(Convert.ToInt32(textBox_baujahr.Text), Convert.ToDouble(textBox_GründstückSize.Text),
-                Convert.ToDouble(textBox_WohnfläscheSize.Text), Convert.ToDouble(textBox_Kellerfläschesize.Text), heizungT, ad);
+                Convert.ToDouble(textBox_WohnfläscheSize.Text), Convert.ToDouble(textBox_Kellerfläschesize.Text), heizungT,ad);
             immo.GetGesamtWohnfläche(Convert.ToDouble(textBox_Kellerfläschesize.Text), Convert.ToDouble(textBox_WohnfläscheSize.Text));
             //immoVerwaltung.AddImmobilie(immo);
             var doubleKeller = Convert.ToDouble(textBox_Kellerfläschesize.Text);
             var doubleWohnflasche = Convert.ToDouble(textBox_WohnfläscheSize.Text);
             double TotalWhonflasche = immo.GetGesamtWohnfläche(doubleKeller, doubleWohnflasche);
-            //creates instance of Address 
-            //Address ad = new Address(textBox_StraßeName.Text, textBox_HausNr.Text, textBox_PLZ.Text, textBox_Stadt.Text);
+        
+            
             // creates instance of  ListviewItem 
             ListViewItem item = new ListViewItem(textBox_baujahr.Text);
             // creates instance of List 

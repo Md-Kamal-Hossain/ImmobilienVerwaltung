@@ -76,7 +76,7 @@
             // label_BauJahr
             // 
             this.label_BauJahr.AutoSize = true;
-            this.label_BauJahr.Location = new System.Drawing.Point(43, 99);
+            this.label_BauJahr.Location = new System.Drawing.Point(70, 45);
             this.label_BauJahr.Name = "label_BauJahr";
             this.label_BauJahr.Size = new System.Drawing.Size(59, 20);
             this.label_BauJahr.TabIndex = 1;
@@ -85,7 +85,7 @@
             // label_Grundstücksgröße
             // 
             this.label_Grundstücksgröße.AutoSize = true;
-            this.label_Grundstücksgröße.Location = new System.Drawing.Point(43, 145);
+            this.label_Grundstücksgröße.Location = new System.Drawing.Point(12, 99);
             this.label_Grundstücksgröße.Name = "label_Grundstücksgröße";
             this.label_Grundstücksgröße.Size = new System.Drawing.Size(127, 20);
             this.label_Grundstücksgröße.TabIndex = 2;
@@ -94,7 +94,7 @@
             // label_Wohnfläche
             // 
             this.label_Wohnfläche.AutoSize = true;
-            this.label_Wohnfläche.Location = new System.Drawing.Point(43, 190);
+            this.label_Wohnfläche.Location = new System.Drawing.Point(52, 145);
             this.label_Wohnfläche.Name = "label_Wohnfläche";
             this.label_Wohnfläche.Size = new System.Drawing.Size(87, 20);
             this.label_Wohnfläche.TabIndex = 3;
@@ -103,7 +103,7 @@
             // label_Kellerfläche
             // 
             this.label_Kellerfläche.AutoSize = true;
-            this.label_Kellerfläche.Location = new System.Drawing.Point(43, 239);
+            this.label_Kellerfläche.Location = new System.Drawing.Point(52, 194);
             this.label_Kellerfläche.Name = "label_Kellerfläche";
             this.label_Kellerfläche.Size = new System.Drawing.Size(87, 20);
             this.label_Kellerfläche.TabIndex = 4;
@@ -111,7 +111,7 @@
             // 
             // textBox_baujahr
             // 
-            this.textBox_baujahr.Location = new System.Drawing.Point(193, 92);
+            this.textBox_baujahr.Location = new System.Drawing.Point(182, 42);
             this.textBox_baujahr.Name = "textBox_baujahr";
             this.textBox_baujahr.Size = new System.Drawing.Size(125, 27);
             this.textBox_baujahr.TabIndex = 6;
@@ -119,7 +119,7 @@
             // 
             // textBox_GründstückSize
             // 
-            this.textBox_GründstückSize.Location = new System.Drawing.Point(193, 138);
+            this.textBox_GründstückSize.Location = new System.Drawing.Point(182, 92);
             this.textBox_GründstückSize.Name = "textBox_GründstückSize";
             this.textBox_GründstückSize.Size = new System.Drawing.Size(125, 27);
             this.textBox_GründstückSize.TabIndex = 7;
@@ -127,7 +127,7 @@
             // 
             // textBox_WohnfläscheSize
             // 
-            this.textBox_WohnfläscheSize.Location = new System.Drawing.Point(193, 190);
+            this.textBox_WohnfläscheSize.Location = new System.Drawing.Point(182, 142);
             this.textBox_WohnfläscheSize.Name = "textBox_WohnfläscheSize";
             this.textBox_WohnfläscheSize.Size = new System.Drawing.Size(125, 27);
             this.textBox_WohnfläscheSize.TabIndex = 8;
@@ -135,7 +135,7 @@
             // 
             // textBox_Kellerfläschesize
             // 
-            this.textBox_Kellerfläschesize.Location = new System.Drawing.Point(193, 239);
+            this.textBox_Kellerfläschesize.Location = new System.Drawing.Point(182, 191);
             this.textBox_Kellerfläschesize.Name = "textBox_Kellerfläschesize";
             this.textBox_Kellerfläschesize.Size = new System.Drawing.Size(125, 27);
             this.textBox_Kellerfläschesize.TabIndex = 9;
@@ -217,7 +217,7 @@
             // 
             // button_Add
             // 
-            this.button_Add.Location = new System.Drawing.Point(45, 378);
+            this.button_Add.Location = new System.Drawing.Point(35, 289);
             this.button_Add.Name = "button_Add";
             this.button_Add.Size = new System.Drawing.Size(94, 29);
             this.button_Add.TabIndex = 20;
@@ -227,7 +227,7 @@
             // 
             // button_Edit
             // 
-            this.button_Edit.Location = new System.Drawing.Point(45, 428);
+            this.button_Edit.Location = new System.Drawing.Point(35, 337);
             this.button_Edit.Name = "button_Edit";
             this.button_Edit.Size = new System.Drawing.Size(94, 29);
             this.button_Edit.TabIndex = 21;
@@ -237,7 +237,7 @@
             // 
             // button_Delete
             // 
-            this.button_Delete.Location = new System.Drawing.Point(170, 428);
+            this.button_Delete.Location = new System.Drawing.Point(35, 435);
             this.button_Delete.Name = "button_Delete";
             this.button_Delete.Size = new System.Drawing.Size(94, 29);
             this.button_Delete.TabIndex = 22;
@@ -247,7 +247,7 @@
             // 
             // button_Read
             // 
-            this.button_Read.Location = new System.Drawing.Point(45, 485);
+            this.button_Read.Location = new System.Drawing.Point(35, 485);
             this.button_Read.Name = "button_Read";
             this.button_Read.Size = new System.Drawing.Size(94, 29);
             this.button_Read.TabIndex = 23;
@@ -257,7 +257,7 @@
             // 
             // button_Save
             // 
-            this.button_Save.Location = new System.Drawing.Point(170, 378);
+            this.button_Save.Location = new System.Drawing.Point(35, 389);
             this.button_Save.Name = "button_Save";
             this.button_Save.Size = new System.Drawing.Size(94, 29);
             this.button_Save.TabIndex = 24;
@@ -268,7 +268,7 @@
             // comboBox_Heizung
             // 
             this.comboBox_Heizung.FormattingEnabled = true;
-            this.comboBox_Heizung.Location = new System.Drawing.Point(193, 303);
+            this.comboBox_Heizung.Location = new System.Drawing.Point(182, 229);
             this.comboBox_Heizung.Name = "comboBox_Heizung";
             this.comboBox_Heizung.Size = new System.Drawing.Size(151, 28);
             this.comboBox_Heizung.TabIndex = 25;
@@ -277,7 +277,7 @@
             // label_HeizungTyp
             // 
             this.label_HeizungTyp.AutoSize = true;
-            this.label_HeizungTyp.Location = new System.Drawing.Point(45, 303);
+            this.label_HeizungTyp.Location = new System.Drawing.Point(54, 236);
             this.label_HeizungTyp.Name = "label_HeizungTyp";
             this.label_HeizungTyp.Size = new System.Drawing.Size(85, 20);
             this.label_HeizungTyp.TabIndex = 26;
@@ -296,10 +296,10 @@
             this.listView_Immobilie.FullRowSelect = true;
             this.listView_Immobilie.GridLines = true;
             this.listView_Immobilie.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.listView_Immobilie.Location = new System.Drawing.Point(350, 262);
+            this.listView_Immobilie.Location = new System.Drawing.Point(147, 262);
             this.listView_Immobilie.MultiSelect = false;
             this.listView_Immobilie.Name = "listView_Immobilie";
-            this.listView_Immobilie.Size = new System.Drawing.Size(676, 256);
+            this.listView_Immobilie.Size = new System.Drawing.Size(879, 256);
             this.listView_Immobilie.TabIndex = 27;
             this.listView_Immobilie.UseCompatibleStateImageBehavior = false;
             this.listView_Immobilie.View = System.Windows.Forms.View.Details;
@@ -309,36 +309,37 @@
             // Baujahr
             // 
             this.Baujahr.Text = "Const. Year";
-            this.Baujahr.Width = 38;
+            this.Baujahr.Width = 75;
             // 
             // Gründstücksgrüße
             // 
             this.Gründstücksgrüße.Text = "Plot Size";
-            this.Gründstücksgrüße.Width = 38;
+            this.Gründstücksgrüße.Width = 67;
             // 
             // Wohnfläsche
             // 
             this.Wohnfläsche.Text = "LivingSpace";
-            this.Wohnfläsche.Width = 38;
+            this.Wohnfläsche.Width = 55;
             // 
             // Kellerfläsche
             // 
             this.Kellerfläsche.Text = "Keller Space";
-            this.Kellerfläsche.Width = 38;
+            this.Kellerfläsche.Width = 55;
             // 
             // TotalArea
             // 
             this.TotalArea.Text = "TotalArea";
+            this.TotalArea.Width = 80;
             // 
             // Heizungtyp
             // 
             this.Heizungtyp.Text = "Heating Type";
-            this.Heizungtyp.Width = 80;
+            this.Heizungtyp.Width = 95;
             // 
             // Address
             // 
             this.Address.Text = "Address";
-            this.Address.Width = 438;
+            this.Address.Width = 450;
             // 
             // Form1
             // 
