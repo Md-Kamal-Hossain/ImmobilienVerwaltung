@@ -66,11 +66,12 @@
             // label_Immobilie
             // 
             this.label_Immobilie.AutoSize = true;
+            this.label_Immobilie.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label_Immobilie.Location = new System.Drawing.Point(418, 16);
             this.label_Immobilie.Name = "label_Immobilie";
-            this.label_Immobilie.Size = new System.Drawing.Size(77, 20);
+            this.label_Immobilie.Size = new System.Drawing.Size(138, 31);
             this.label_Immobilie.TabIndex = 0;
-            this.label_Immobilie.Text = "Immobilie";
+            this.label_Immobilie.Text = "Immobilien";
             this.label_Immobilie.Click += new System.EventHandler(this.label1_Click);
             // 
             // label_BauJahr
@@ -209,7 +210,8 @@
             // label_Address
             // 
             this.label_Address.AutoSize = true;
-            this.label_Address.Location = new System.Drawing.Point(597, 42);
+            this.label_Address.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.label_Address.Location = new System.Drawing.Point(576, 66);
             this.label_Address.Name = "label_Address";
             this.label_Address.Size = new System.Drawing.Size(70, 20);
             this.label_Address.TabIndex = 19;
@@ -217,7 +219,7 @@
             // 
             // button_Add
             // 
-            this.button_Add.Location = new System.Drawing.Point(35, 289);
+            this.button_Add.Location = new System.Drawing.Point(745, 45);
             this.button_Add.Name = "button_Add";
             this.button_Add.Size = new System.Drawing.Size(94, 29);
             this.button_Add.TabIndex = 20;
@@ -227,7 +229,7 @@
             // 
             // button_Edit
             // 
-            this.button_Edit.Location = new System.Drawing.Point(35, 337);
+            this.button_Edit.Location = new System.Drawing.Point(866, 45);
             this.button_Edit.Name = "button_Edit";
             this.button_Edit.Size = new System.Drawing.Size(94, 29);
             this.button_Edit.TabIndex = 21;
@@ -237,7 +239,7 @@
             // 
             // button_Delete
             // 
-            this.button_Delete.Location = new System.Drawing.Point(35, 435);
+            this.button_Delete.Location = new System.Drawing.Point(866, 111);
             this.button_Delete.Name = "button_Delete";
             this.button_Delete.Size = new System.Drawing.Size(94, 29);
             this.button_Delete.TabIndex = 22;
@@ -247,7 +249,7 @@
             // 
             // button_Read
             // 
-            this.button_Read.Location = new System.Drawing.Point(35, 485);
+            this.button_Read.Location = new System.Drawing.Point(745, 178);
             this.button_Read.Name = "button_Read";
             this.button_Read.Size = new System.Drawing.Size(94, 29);
             this.button_Read.TabIndex = 23;
@@ -257,7 +259,7 @@
             // 
             // button_Save
             // 
-            this.button_Save.Location = new System.Drawing.Point(35, 389);
+            this.button_Save.Location = new System.Drawing.Point(745, 111);
             this.button_Save.Name = "button_Save";
             this.button_Save.Size = new System.Drawing.Size(94, 29);
             this.button_Save.TabIndex = 24;
@@ -296,10 +298,10 @@
             this.listView_Immobilie.FullRowSelect = true;
             this.listView_Immobilie.GridLines = true;
             this.listView_Immobilie.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.listView_Immobilie.Location = new System.Drawing.Point(147, 262);
+            this.listView_Immobilie.Location = new System.Drawing.Point(12, 262);
             this.listView_Immobilie.MultiSelect = false;
             this.listView_Immobilie.Name = "listView_Immobilie";
-            this.listView_Immobilie.Size = new System.Drawing.Size(879, 256);
+            this.listView_Immobilie.Size = new System.Drawing.Size(1014, 256);
             this.listView_Immobilie.TabIndex = 27;
             this.listView_Immobilie.UseCompatibleStateImageBehavior = false;
             this.listView_Immobilie.View = System.Windows.Forms.View.Details;
@@ -309,37 +311,37 @@
             // Baujahr
             // 
             this.Baujahr.Text = "Const. Year";
-            this.Baujahr.Width = 75;
+            this.Baujahr.Width = 85;
             // 
             // Gründstücksgrüße
             // 
             this.Gründstücksgrüße.Text = "Plot Size";
-            this.Gründstücksgrüße.Width = 67;
+            this.Gründstücksgrüße.Width = 75;
             // 
             // Wohnfläsche
             // 
-            this.Wohnfläsche.Text = "LivingSpace";
-            this.Wohnfläsche.Width = 55;
+            this.Wohnfläsche.Text = "Liv.Space";
+            this.Wohnfläsche.Width = 75;
             // 
             // Kellerfläsche
             // 
-            this.Kellerfläsche.Text = "Keller Space";
-            this.Kellerfläsche.Width = 55;
+            this.Kellerfläsche.Text = "Basement";
+            this.Kellerfläsche.Width = 80;
             // 
             // TotalArea
             // 
-            this.TotalArea.Text = "TotalArea";
-            this.TotalArea.Width = 80;
+            this.TotalArea.Text = "Tot. Liv. Space";
+            this.TotalArea.Width = 105;
             // 
             // Heizungtyp
             // 
             this.Heizungtyp.Text = "Heating Type";
-            this.Heizungtyp.Width = 95;
+            this.Heizungtyp.Width = 100;
             // 
             // Address
             // 
             this.Address.Text = "Address";
-            this.Address.Width = 450;
+            this.Address.Width = 490;
             // 
             // Form1
             // 
