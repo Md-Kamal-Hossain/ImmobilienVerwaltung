@@ -58,9 +58,9 @@
             this.Gründstücksgrüße = new System.Windows.Forms.ColumnHeader();
             this.Wohnfläsche = new System.Windows.Forms.ColumnHeader();
             this.Kellerfläsche = new System.Windows.Forms.ColumnHeader();
+            this.TotalArea = new System.Windows.Forms.ColumnHeader();
             this.Heizungtyp = new System.Windows.Forms.ColumnHeader();
             this.Address = new System.Windows.Forms.ColumnHeader();
-            this.TotalArea = new System.Windows.Forms.ColumnHeader();
             this.SuspendLayout();
             // 
             // label_Immobilie
@@ -326,6 +326,10 @@
             this.Kellerfläsche.Text = "Keller Space";
             this.Kellerfläsche.Width = 38;
             // 
+            // TotalArea
+            // 
+            this.TotalArea.Text = "TotalArea";
+            // 
             // Heizungtyp
             // 
             this.Heizungtyp.Text = "Heating Type";
@@ -335,10 +339,6 @@
             // 
             this.Address.Text = "Address";
             this.Address.Width = 438;
-            // 
-            // TotalArea
-            // 
-            this.TotalArea.Text = "TotalArea";
             // 
             // Form1
             // 

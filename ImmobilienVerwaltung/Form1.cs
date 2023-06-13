@@ -16,7 +16,7 @@ namespace ImmobilienVerwaltung
             InitializeComponent();
 
             comboBox_Heizung.DataSource = Enum.GetValues(typeof(HeizungSystemTyp));
-           // ListView.SelectedIndexCollection indexes = this.listView_Immobilie.SelectedIndices;
+           
 
         }
 
@@ -33,6 +33,7 @@ namespace ImmobilienVerwaltung
                 textBox_WohnfläscheSize.Text = this.listView_Immobilie.Items[index].SubItems[2].Text;
                 textBox_Kellerfläschesize.Text = this.listView_Immobilie.Items[index].SubItems[3].Text;
                 comboBox_Heizung.Text = this.listView_Immobilie.Items[index].SubItems[5].Text;
+
                 //splitting address into Street, housno, PLZ and Stadt
                 //so that asign those to corresponding textboxes
                 char[] separators = { ';', '-', '.', ':' };
@@ -41,6 +42,18 @@ namespace ImmobilienVerwaltung
                 textBox_HausNr.Text = parts2[4];
                 textBox_PLZ.Text = parts2[6];
                 textBox_Stadt.Text = parts2[8];
+            }
+            if(indexes.Count<1)
+            {
+                textBox_baujahr.Clear();
+                textBox_GründstückSize.Clear();
+                textBox_Kellerfläschesize.Clear();
+                textBox_WohnfläscheSize.Clear();
+                comboBox_Heizung.SelectedIndex = -1;
+                textBox_StraßeName.Clear();
+                textBox_HausNr.Clear();
+                textBox_PLZ.Clear();
+                textBox_Stadt.Clear();
             }
 
         }
@@ -194,8 +207,18 @@ namespace ImmobilienVerwaltung
                 }
                 reader.Dispose();
 
+
             }
-            
+            //textBox_baujahr.Clear();
+            //textBox_GründstückSize.Clear();
+            //textBox_Kellerfläschesize.Clear();
+            //textBox_WohnfläscheSize.Clear();
+            //comboBox_Heizung.SelectedIndex = -1;
+            //textBox_StraßeName.Clear();
+            //textBox_HausNr.Clear();
+            //textBox_PLZ.Clear();
+            //textBox_Stadt.Clear();
+
 
         }
         // Save the ListView items to a text file
