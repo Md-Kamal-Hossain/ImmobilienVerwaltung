@@ -13,15 +13,13 @@ namespace ImmobilienVerwaltung
         string path = @"C:/Users/Public/RealEstateData/PropertyINFO.txt";
         public Form1()
         {
-            InitializeComponent();
+            InitializeComponent();          
             
-            
-
             comboBox_Heizung.DataSource = Enum.GetValues(typeof(HeizungSystemTyp));
            
 
         }
-
+        // If an item from Listview is Selected this method is called 
         public void listView_Immobilie_SelectedIndexChanged(object sender, EventArgs e)
         {
            
@@ -46,6 +44,7 @@ namespace ImmobilienVerwaltung
                 textBox_PLZ.Text = parts2[6];
                 textBox_Stadt.Text = parts2[8];
             }
+
             if(indexes.Count<1)
             {
                 textBox_baujahr.Clear();
@@ -264,8 +263,9 @@ namespace ImmobilienVerwaltung
             Address ad = new Address(textBox_StraßeName.Text, textBox_HausNr.Text, textBox_PLZ.Text, textBox_Stadt.Text);
             Immobilie immo = new Immobilie(Convert.ToInt32(textBox_baujahr.Text), Convert.ToDouble(textBox_GründstückSize.Text),
                 Convert.ToDouble(textBox_WohnfläscheSize.Text), Convert.ToDouble(textBox_Kellerfläschesize.Text), heizungT,ad);
-            immo.GetGesamtWohnfläche(Convert.ToDouble(textBox_Kellerfläschesize.Text), Convert.ToDouble(textBox_WohnfläscheSize.Text));
-            //immoVerwaltung.AddImmobilie(immo);
+            //immo.GetGesamtWohnfläche(Convert.ToDouble(textBox_Kellerfläschesize.Text), Convert.ToDouble(textBox_WohnfläscheSize.Text));
+
+          // For total Living Space
             var doubleKeller = Convert.ToDouble(textBox_Kellerfläschesize.Text);
             var doubleWohnflasche = Convert.ToDouble(textBox_WohnfläscheSize.Text);
             double TotalWhonflasche = immo.GetGesamtWohnfläche(doubleKeller, doubleWohnflasche);
@@ -324,10 +324,12 @@ namespace ImmobilienVerwaltung
                 item.SubItems[1].Text = textBox_GründstückSize.Text;
                 item.SubItems[2].Text = textBox_Kellerfläschesize.Text;
                 item.SubItems[3].Text = textBox_WohnfläscheSize.Text;
+                //For total LivingSpace
                 var doubleKeller = Convert.ToDouble(textBox_Kellerfläschesize.Text);
                 var doubleWohnflasche = Convert.ToDouble(textBox_WohnfläscheSize.Text);
                 double TotalWhonflasche = immo.GetGesamtWohnfläche(doubleKeller, doubleWohnflasche);
                 item.SubItems[4].Text = TotalWhonflasche.ToString();
+                //
                 item.SubItems[5].Text = comboBox_Heizung.Text;
                 item.SubItems[6].Text = $"Address:  Straße-{textBox_StraßeName.Text}; HouseNo- {textBox_HausNr.Text}; PLZ- {textBox_PLZ.Text}; Stadt- {textBox_Stadt.Text}.";
             }
