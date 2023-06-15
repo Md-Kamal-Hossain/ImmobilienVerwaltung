@@ -112,6 +112,7 @@
             // 
             // textBox_baujahr
             // 
+            
             this.textBox_baujahr.Location = new System.Drawing.Point(182, 42);
             this.textBox_baujahr.Name = "textBox_baujahr";
             this.textBox_baujahr.Size = new System.Drawing.Size(125, 27);

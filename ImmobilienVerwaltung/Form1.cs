@@ -13,16 +13,17 @@ namespace ImmobilienVerwaltung
         string path = @"C:/Users/Public/RealEstateData/PropertyINFO.txt";
         public Form1()
         {
-            InitializeComponent();          
-            
+            InitializeComponent();
+
             comboBox_Heizung.DataSource = Enum.GetValues(typeof(HeizungSystemTyp));
-           
+            comboBox_Heizung.SelectedIndex = -1;
+
 
         }
         // If an item from Listview is Selected this method is called 
         public void listView_Immobilie_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
+
             // SelectedIndices property returns collection of indices wich is stored in indexes
             // which is a instance of ListView.SelectedIndexCollection
             ListView.SelectedIndexCollection indexes = listView_Immobilie.SelectedIndices;
@@ -37,15 +38,15 @@ namespace ImmobilienVerwaltung
 
                 //splitting address into Street, housno, PLZ and Stadt
                 //so that asign those to corresponding textboxes
-                char[] separators = { ';', '-', '.', ':' };
+                char[] separators = {';', '-', '.', ':'};
                 string[] parts2 = this.listView_Immobilie.Items[index].SubItems[6].Text.Split(separators);
-                textBox_StraﬂeName.Text = parts2[2];
-                textBox_HausNr.Text = parts2[4];
-                textBox_PLZ.Text = parts2[6];
-                textBox_Stadt.Text = parts2[8];
+                textBox_StraﬂeName.Text =parts2[2];
+                textBox_HausNr.Text =parts2[4];
+                textBox_PLZ.Text =parts2[6];
+                textBox_Stadt.Text =parts2[8];
             }
 
-            if(indexes.Count<1)
+            if (indexes.Count < 1)
             {
                 textBox_baujahr.Clear();
                 textBox_Gr¸ndst¸ckSize.Clear();
@@ -72,8 +73,16 @@ namespace ImmobilienVerwaltung
         public void button_Add_Click(object sender, EventArgs e)
 
         {
-            if (string.IsNullOrEmpty(textBox_baujahr.Text) && string.IsNullOrEmpty(textBox_Gr¸ndst¸ckSize.Text)
-                && string.IsNullOrEmpty(textBox_Wohnfl‰scheSize.Text) && string.IsNullOrEmpty(textBox_StraﬂeName.Text) && string.IsNullOrEmpty(textBox_HausNr.Text))
+            int bauja;
+            double grunflasche;
+            double wohnflache;
+            double kellerflache;
+            if (!int.TryParse(textBox_baujahr.Text, out bauja) || !double.TryParse(textBox_Gr¸ndst¸ckSize.Text, out grunflasche) || !double.TryParse(textBox_Wohnfl‰scheSize.Text, out wohnflache)|| !double.TryParse(textBox_Kellerfl‰schesize.Text, out kellerflache))
+            {
+                MessageBox.Show("Please put only integer value for Year;and Decimal or Integer for Gr¸ndflasche, Wohnflasche and Kellerflasche!");
+            }
+           else if (string.IsNullOrEmpty(textBox_baujahr.Text) && string.IsNullOrEmpty(textBox_Gr¸ndst¸ckSize.Text)
+                && string.IsNullOrEmpty(textBox_Wohnfl‰scheSize.Text) && string.IsNullOrEmpty(textBox_Kellerfl‰schesize.Text) && string.IsNullOrEmpty(textBox_StraﬂeName.Text) && string.IsNullOrEmpty(textBox_HausNr.Text))
             {
                 MessageBox.Show("Please fill in all the required textboxes.", "Missing Information", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
@@ -81,7 +90,7 @@ namespace ImmobilienVerwaltung
             {
                 AddItemToListView();
             }
-           
+
 
         }
 
@@ -109,19 +118,17 @@ namespace ImmobilienVerwaltung
         }
 
         private void button_Edit_Click(object sender, EventArgs e)
-        {  
+        {
             //only call the method if an item from litview gets selected
             if (listView_Immobilie.SelectedItems.Count > 0)
             {
                 EditItemInListView();
             }
             else
-            {  
+            {
                 //Messege if click on edit without selecting an item
                 MessageBox.Show("Please select the line you want to edit", "Missing Information", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-
-
 
         }
 
@@ -131,15 +138,15 @@ namespace ImmobilienVerwaltung
         }
         private void button_Save_Click(object sender, EventArgs e)
         {
-                      
-                SaveListViewItemsToFile();            
+
+            SaveListViewItemsToFile();
 
         }
         private void button_Read_Click(object sender, EventArgs e)
         {
             StreamReader reader = new StreamReader(path);
             string line;
-            if((line = reader.ReadLine()) != null)
+            if ((line = reader.ReadLine()) != null)
             {
                 ReadDataFromTextFile();
                 reader.Close();
@@ -148,27 +155,25 @@ namespace ImmobilienVerwaltung
             {
                 MessageBox.Show("Your file does not have any data!");
             }
-        
+
         }
 
         private void button_Delete_Click(object sender, EventArgs e)
         {
             if (listView_Immobilie.SelectedItems.Count > 0)
             {
-                DialogResult result = MessageBox.Show("Are you sure you want to delete?", "Delete Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+              var  result = MessageBox.Show("Are you sure you want to delete?", "Delete Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (result == DialogResult.Yes)
                 {
                     DeleteItemFromListView();
                 }
-               
+
             }
             else
             {
                 MessageBox.Show("Please select the line you want to delete");
             }
-
-            
 
 
         }
@@ -178,13 +183,13 @@ namespace ImmobilienVerwaltung
         }
         //Read Text file
         private void ReadDataFromTextFile()
-        {  
+        {
             //clear ListView control before reading; otherwise redundent might be shown data
             listView_Immobilie.Items.Clear();
             using (StreamReader reader = new StreamReader(path))
             {
                 try
-                {   
+                {
                     // Read all lines from the text file
                     string[] lines = File.ReadAllLines(path);
                     // Add subitems to the ListViewItem
@@ -205,55 +210,55 @@ namespace ImmobilienVerwaltung
                         // Add the ListViewItem to the ListView
                         listView_Immobilie.Items.Add(item);
                     }
-                    
+
 
                 }
                 catch (Exception ex)
-                {                   
-                   MessageBox.Show("An error occurred: " + ex.Message);
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
                 }
                 reader.Dispose();
 
 
             }
-            
+
 
 
         }
         // Save the ListView items to a text file
         private void SaveListViewItemsToFile()
         {
-           
-               // instance of Streamwriter                 
-                using (StreamWriter writer = new StreamWriter(path))
+
+            // instance of Streamwriter                 
+            using (StreamWriter writer = new StreamWriter(path))
+            {
+                //iterate through all the item in listview_Immobilie instance
+                foreach (ListViewItem item in listView_Immobilie.Items)
                 {
-                    //iterate through all the item in listview_Immobilie instance
-                    foreach (ListViewItem item in listView_Immobilie.Items)
+                    //Empty list
+                    List<string> subItems = new List<string>();
+                    //iterate through all the subitems of an item
+                    for (int i = 0; i < item.SubItems.Count; i++)
                     {
-                        //Empty list
-                        List<string> subItems = new List<string>();
-                        //iterate through all the subitems of an item
-                        for (int i = 0; i < item.SubItems.Count; i++)
-                        {
                         //populating the emptylist through appending
                         subItems.Add(item.SubItems[i].Text);
-                        }
-                        // Write the properties to the file
-                        writer.WriteLine(string.Join(",", subItems));
-
                     }
+                    // Write the properties to the file
+                    writer.WriteLine(string.Join(",", subItems));
 
                 }
 
-                        textBox_baujahr.Clear();
-                        textBox_Gr¸ndst¸ckSize.Clear();
-                        textBox_Kellerfl‰schesize.Clear();
-                        textBox_Wohnfl‰scheSize.Clear();
-                        comboBox_Heizung.SelectedIndex = -1;
-                        textBox_StraﬂeName.Clear();
-                        textBox_HausNr.Clear();
-                        textBox_PLZ.Clear();
-                        textBox_Stadt.Clear();
+            }
+
+            textBox_baujahr.Clear();
+            textBox_Gr¸ndst¸ckSize.Clear();
+            textBox_Kellerfl‰schesize.Clear();
+            textBox_Wohnfl‰scheSize.Clear();
+            comboBox_Heizung.SelectedIndex = -1;
+            textBox_StraﬂeName.Clear();
+            textBox_HausNr.Clear();
+            textBox_PLZ.Clear();
+            textBox_Stadt.Clear();
 
         }
         // Add an item to the ListView and save it to a file
@@ -262,15 +267,15 @@ namespace ImmobilienVerwaltung
             HeizungSystemTyp heizungT = new HeizungSystemTyp();
             Address ad = new Address(textBox_StraﬂeName.Text, textBox_HausNr.Text, textBox_PLZ.Text, textBox_Stadt.Text);
             Immobilie immo = new Immobilie(Convert.ToInt32(textBox_baujahr.Text), Convert.ToDouble(textBox_Gr¸ndst¸ckSize.Text),
-                Convert.ToDouble(textBox_Wohnfl‰scheSize.Text), Convert.ToDouble(textBox_Kellerfl‰schesize.Text), heizungT,ad);
+                Convert.ToDouble(textBox_Wohnfl‰scheSize.Text), Convert.ToDouble(textBox_Kellerfl‰schesize.Text), heizungT, ad);
             //immo.GetGesamtWohnfl‰che(Convert.ToDouble(textBox_Kellerfl‰schesize.Text), Convert.ToDouble(textBox_Wohnfl‰scheSize.Text));
 
-          // For total Living Space
+            // For total Living Space
             var doubleKeller = Convert.ToDouble(textBox_Kellerfl‰schesize.Text);
             var doubleWohnflasche = Convert.ToDouble(textBox_Wohnfl‰scheSize.Text);
             double TotalWhonflasche = immo.GetGesamtWohnfl‰che(doubleKeller, doubleWohnflasche);
-        
-            
+
+
             // creates instance of  ListviewItem 
             ListViewItem item = new ListViewItem(textBox_baujahr.Text);
             // creates instance of List 
@@ -309,6 +314,7 @@ namespace ImmobilienVerwaltung
             Immobilie immo = new Immobilie(Convert.ToInt32(textBox_baujahr.Text), Convert.ToDouble(textBox_Gr¸ndst¸ckSize.Text),
                 Convert.ToDouble(textBox_Wohnfl‰scheSize.Text), Convert.ToDouble(textBox_Kellerfl‰schesize.Text), heizungT, ad);
             immo.GetGesamtWohnfl‰che(Convert.ToDouble(textBox_Kellerfl‰schesize.Text), Convert.ToDouble(textBox_Wohnfl‰scheSize.Text));
+
             //subscribing listView_Immobilie_SelectedIndexChanged to the event SelectedIndexChanged
             listView_Immobilie.SelectedIndexChanged += listView_Immobilie_SelectedIndexChanged;
 
@@ -324,12 +330,13 @@ namespace ImmobilienVerwaltung
                 item.SubItems[1].Text = textBox_Gr¸ndst¸ckSize.Text;
                 item.SubItems[2].Text = textBox_Kellerfl‰schesize.Text;
                 item.SubItems[3].Text = textBox_Wohnfl‰scheSize.Text;
+
                 //For total LivingSpace
                 var doubleKeller = Convert.ToDouble(textBox_Kellerfl‰schesize.Text);
                 var doubleWohnflasche = Convert.ToDouble(textBox_Wohnfl‰scheSize.Text);
                 double TotalWhonflasche = immo.GetGesamtWohnfl‰che(doubleKeller, doubleWohnflasche);
-                item.SubItems[4].Text = TotalWhonflasche.ToString();
-                //
+
+                item.SubItems[4].Text = TotalWhonflasche.ToString();               
                 item.SubItems[5].Text = comboBox_Heizung.Text;
                 item.SubItems[6].Text = $"Address:  Straﬂe-{textBox_StraﬂeName.Text}; HouseNo- {textBox_HausNr.Text}; PLZ- {textBox_PLZ.Text}; Stadt- {textBox_Stadt.Text}.";
             }
@@ -357,8 +364,8 @@ namespace ImmobilienVerwaltung
             textBox_HausNr.Clear();
             textBox_PLZ.Clear();
             textBox_Stadt.Clear();
-        }          
+        }
     }
 
- 
+
 }
